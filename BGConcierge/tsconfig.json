@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@assets/*": ["./assets/*"],
+    }
   },
   "extends": "@tsconfig/react-native/tsconfig.json"
 }
