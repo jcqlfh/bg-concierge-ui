@@ -5,14 +5,15 @@
  * @format
  */
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Text} from 'react-native-paper';
-import { FlatList, ScrollView, View } from 'react-native';
+import { FlatList, Image, View } from 'react-native';
 import Header from '@components/header/Header';
 import Title from '@components/title/Title';
 import Collection from '@components/collection/Collection';
 
 function App(): JSX.Element {
+  const flatListRef = useRef();
   const [data, setData] = useState([
     {name: 'BGG Ranking', isEditable: false},
     {name: 'jcqlfh', isEditable: true},
@@ -28,7 +29,10 @@ function App(): JSX.Element {
       <Title text={'Choose a Collection'} />
       <Button icon='plus' style={{margin:10}}buttonColor='#4504FD20' onPress={() => {setData([{name: '', isEditable: true}, ...data]); setRerender(new Date())}}>Add Collection</Button>
       <View style={{flex: 1}}>
-      <FlatList data={data}
+      <FlatList         
+        ref={flatListRef}
+        removeClippedSubviews={false}
+        data={data}
         extraData={rerender}
         renderItem={
           ({item, index}) => 
@@ -49,6 +53,7 @@ function App(): JSX.Element {
               {
                 setSelectedItem(name);
                 setRerender(new Date());
+                flatListRef.current.scrollToItem({item: item, viewPosition: 1});
               }
             }
             onDelete={
@@ -62,6 +67,15 @@ function App(): JSX.Element {
         }
       />
       </View>
+      <View>
+
+      </View>
+      <View style={{flexDirection: 'row', backgroundColor: '#4504FD20', padding: 10, justifyContent:'center', alignItems: 'center'}}>
+            <Image style={{height:64, width: 64}} source={require('@assets/images/collection.png')}/>
+            <View style={{ marginLeft: 10, marginRight: 10}}>
+                <Text style={{textAlign: 'center', fontFamily: 'BellotaText', fontSize:32}}>CHOOSE</Text>
+            </View>
+        </View>
     </View>
     
   );

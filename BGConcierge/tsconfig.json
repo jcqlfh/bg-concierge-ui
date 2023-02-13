@@ -3,8 +3,9 @@
     "jsx": "react",
     "esModuleInterop": true,
     "paths": {
-      "@components/*": ["./src/shared/components/*"],
       "@assets/*": ["./assets/*"],
+      "@components/*": ["./src/shared/components/*"],
+      "@hooks/*": ["./src/shared/hooks/*"],
     }
   },
   "extends": "@tsconfig/react-native/tsconfig.json"

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TextInput } from "react-native-paper";
 import { Image, View } from "react-native";
-import { useSwipe } from "../../hooks/useSwipe";
+import { useSwipe } from "@hooks/useSwipe";
 
 function Collection(props : {name: string, isEditable: boolean, onChange: (newItem: string) => void, isSelected: boolean, onSelected: (selected: string) => void, onDelete: () => void}): JSX.Element
 {
