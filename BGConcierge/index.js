@@ -2,7 +2,7 @@
  * @format
  */
 
-import {AppRegistry, SafeAreaView} from 'react-native';
+import {AppRegistry, Dimensions, SafeAreaView} from 'react-native';
 import App from './src/App';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {name as appName} from './src/app.json';
@@ -11,14 +11,16 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
 export default function Main() {
+    var height = Dimensions.get('window').height;
+
     return (
-    <PaperProvider style={{flex: 1}}>
-        <SafeAreaView style={{flex: 1}}>
-            <SafeAreaProvider style={{flex: 1}}>
-                <App />
+        <SafeAreaView style={{height: height}}>
+            <SafeAreaProvider>
+                <PaperProvider>
+                    <App />
+                </PaperProvider>
             </SafeAreaProvider>
         </SafeAreaView>
-    </PaperProvider>
     );
   }
 
