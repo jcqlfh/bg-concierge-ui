@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, { useRef, useState } from 'react';
+import React, { LegacyRef, MutableRefObject, useRef, useState } from 'react';
 import { Button, Text} from 'react-native-paper';
 import { FlatList, Image, View } from 'react-native';
 import Header from '@components/header/Header';
@@ -13,7 +13,7 @@ import Title from '@components/title/Title';
 import Collection from '@components/collection/Collection';
 
 function App(): JSX.Element {
-  const flatListRef = useRef();
+  const flatListRef = useRef<FlatList<{ name: string; isEditable: boolean;}>>(null);
   const [data, setData] = useState([
     {name: 'BGG Ranking', isEditable: false},
     {name: 'jcqlfh', isEditable: true},
@@ -27,7 +27,20 @@ function App(): JSX.Element {
     <View style={{flex: 1}}>
       <Header />
       <Title text={'Choose a Collection'} />
-      <Button icon='plus' style={{margin:10}}buttonColor='#4504FD20' onPress={() => {setData([{name: '', isEditable: true}, ...data]); setRerender(new Date())}}>Add Collection</Button>
+      <Button 
+        icon='plus' 
+        style={{margin:10}}buttonColor='#4504FD20' 
+        onPress={() => {
+          if(data.find(i => i.name === '')){
+            setSelectedItem('');
+            return;
+          }
+
+          setData([data[0], {name: '', isEditable: true}, ...data.slice(1)]);
+          setRerender(new Date())}
+        }>
+        Add Collection
+      </Button>
       <View style={{flex: 1}}>
       <FlatList         
         ref={flatListRef}
@@ -53,7 +66,7 @@ function App(): JSX.Element {
               {
                 setSelectedItem(name);
                 setRerender(new Date());
-                flatListRef.current.scrollToItem({item: item, viewPosition: 1});
+                flatListRef && flatListRef.current && flatListRef.current.scrollToItem({item: item, viewPosition: 1});
               }
             }
             onDelete={
