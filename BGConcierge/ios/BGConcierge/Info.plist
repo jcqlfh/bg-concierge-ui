@@ -54,6 +54,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>BigelowRules.ttf</string>
+		<string>BellotaText.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
 
-function Menu(): JSX.Element {
+function Header(): JSX.Element {
 
   return (
     <Appbar mode='center-aligned' style={{ backgroundColor: '#04FD9420'}}> 
@@ -11,4 +11,4 @@ function Menu(): JSX.Element {
   );
 }
 
-export default Menu;
+export default Header;

@@ -6,35 +6,27 @@
  */
 
 import React from 'react';
-import { Text} from 'react-native-paper';
-import { Dimensions, FlatList, ScrollView, View } from 'react-native';
-import Menu from './shared/components/menu/Menu';
+import { Button, Text} from 'react-native-paper';
+import { FlatList, ScrollView, View } from 'react-native';
+import Header from '@components/header/Header';
+import Title from '@components/title/Title';
+import Collection from '@components/collection/Collection';
 
 function App(): JSX.Element {
   return (
-    <View style={{backgroundColor: 'pink', flex: 1}}>
-      <Menu />
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>texasdasdast</Text>
-      
-      <View style={{flex: 1, backgroundColor: 'orange'}} onStartShouldSetResponder={() => true}>
-      <ScrollView style={{backgroundColor: 'white', margin: 10}}>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      <Text style={{height:30, marginTop: 50, fontSize: 22, textDecorationLine: 'underline', textAlign: 'center'}}>TESTE</Text>
-      </ScrollView>
+    <View style={{flex: 1}}>
+      <Header />
+      <Title text={'Choose a Collection'} />
+      <Button icon='plus' style={{margin:10}}buttonColor='blue'>Add Collection</Button>
+      <View style={{flex: 1}}>
+      <FlatList data={[
+          {name: 'BGG Ranking', isEditable: false},
+          {name: 'jcqlfh', isEditable: true},
+        ]}
+        renderItem={
+          ({item}) => <Collection name={item.name} isEditable={item.isEditable} />
+        }
+      />
       </View>
     </View>
     

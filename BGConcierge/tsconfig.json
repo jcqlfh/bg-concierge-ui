@@ -3,6 +3,7 @@
     "jsx": "react",
     "esModuleInterop": true,
     "paths": {
+      "@components/*": ["./src/shared/components/*"],
       "@assets/*": ["./assets/*"],
     }
   },
