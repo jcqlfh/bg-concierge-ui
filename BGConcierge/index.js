@@ -12,9 +12,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function Main() {
     return (
-    <PaperProvider>
-        <SafeAreaView>
-            <SafeAreaProvider>
+    <PaperProvider style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
+            <SafeAreaProvider style={{flex: 1}}>
                 <App />
             </SafeAreaProvider>
         </SafeAreaView>
