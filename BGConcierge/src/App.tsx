@@ -5,92 +5,60 @@
  * @format
  */
 
-import React, { LegacyRef, MutableRefObject, useRef, useState } from 'react';
-import { Button, Text} from 'react-native-paper';
-import { FlatList, Image, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Keyboard, SafeAreaView } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider as PaperProvider } from 'react-native-paper';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Setup from './features/setup/Setup';
+import Search from './features/search/Search';
 import Header from '@components/header/Header';
-import Title from '@components/title/Title';
-import Collection from '@components/collection/Collection';
 
-function App(): JSX.Element {
-  const flatListRef = useRef<FlatList<{ name: string; isEditable: boolean;}>>(null);
-  const [data, setData] = useState([
-    {name: 'BGG Ranking', isEditable: false},
-    {name: 'jcqlfh', isEditable: true},
-  ]);
-  const [rerender, setRerender] = useState(new Date());
-  const [selectedItem, setSelectedItem] = useState('');
+function App() {
+  const Stack = createNativeStackNavigator();
+  const [height, setHeight] = useState(Dimensions.get('window').height);
 
-  console.log(selectedItem);
+  useEffect(() => {
+      const keyboardShown = Keyboard.addListener('keyboardDidShow', (e) => {
+          console.log("show");
+          setHeight(Dimensions.get('window').height-e.endCoordinates.height);
+      });
+      const keyboardHidden = Keyboard.addListener('keyboardDidHide', () => {
+          console.log("hide");
+          setHeight(Dimensions.get('window').height);
+      });
+      const dimensionChanged = Dimensions.addEventListener('change', () => {
+          console.log("hide");
+          setHeight(Dimensions.get('window').height);
+      });
+
+      return () => {
+          keyboardShown.remove();
+          keyboardHidden.remove();
+          dimensionChanged.remove();
+      }
+
+  })
+
 
   return (
-    <View style={{flex: 1}}>
-      <Header />
-      <Title text={'Choose a Collection'} />
-      <Button 
-        icon='plus' 
-        style={{margin:10}}buttonColor='#4504FD20' 
-        onPress={() => {
-          if(data.find(i => i.name === '')){
-            setSelectedItem('');
-            return;
-          }
-
-          setData([data[0], {name: '', isEditable: true}, ...data.slice(1)]);
-          setRerender(new Date())}
-        }>
-        Add Collection
-      </Button>
-      <View style={{flex: 1}}>
-      <FlatList         
-        ref={flatListRef}
-        removeClippedSubviews={false}
-        data={data}
-        extraData={rerender}
-        renderItem={
-          ({item, index}) => 
-          <Collection 
-            name={item.name}
-            isEditable={item.isEditable} 
-            isSelected={selectedItem === item.name} 
-            onChange={
-              (newItem) => 
-              {
-                data[index].name = newItem
-                setData(data);
-                setRerender(new Date());
-              }
-            }
-            onSelected={
-              (name: string) => 
-              {
-                setSelectedItem(name);
-                setRerender(new Date());
-                flatListRef && flatListRef.current && flatListRef.current.scrollToItem({item: item, viewPosition: 1});
-              }
-            }
-            onDelete={
-              () =>
-              {
-                data.splice(index, 1);
-                setData(data);
-                setRerender(new Date());
-              }
-            }/>
-        }
-      />
-      </View>
-      <View>
-
-      </View>
-      <View style={{flexDirection: 'row', backgroundColor: '#4504FD20', padding: 10, justifyContent:'center', alignItems: 'center'}}>
-            <Image style={{height:64, width: 64}} source={require('@assets/images/collection.png')}/>
-            <View style={{ marginLeft: 10, marginRight: 10}}>
-                <Text style={{textAlign: 'center', fontFamily: 'BellotaText', fontSize:32}}>CHOOSE</Text>
-            </View>
-        </View>
-    </View>
-    
+      <SafeAreaView style={{height: height}}>
+          <SafeAreaProvider>
+              <PaperProvider>
+                <NavigationContainer >
+                  <Stack.Navigator>
+                    <Stack.Screen name="Setup" component={Setup} 
+                      options={{ header: (props) => <Header />}}
+                    />
+                    <Stack.Screen name="Search" component={Search} 
+                      options={{ header: (props) => <Header />}}
+                    />
+                  </Stack.Navigator>
+                </NavigationContainer>
+              </PaperProvider>
+          </SafeAreaProvider>
+      </SafeAreaView>
   );
 }
 
