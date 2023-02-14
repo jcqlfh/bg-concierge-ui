@@ -1,18 +1,11 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React, { useEffect, useState } from 'react';
 import { Dimensions, Keyboard, SafeAreaView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Setup from './features/setup/Setup';
-import Search from './features/search/Search';
+import Setup from './screens/setup/Setup';
+import Search from './screens/search/Search';
 import Header from '@components/header/Header';
 
 function App() {
@@ -21,15 +14,12 @@ function App() {
 
   useEffect(() => {
       const keyboardShown = Keyboard.addListener('keyboardDidShow', (e) => {
-          console.log("show");
           setHeight(Dimensions.get('window').height-e.endCoordinates.height);
       });
       const keyboardHidden = Keyboard.addListener('keyboardDidHide', () => {
-          console.log("hide");
           setHeight(Dimensions.get('window').height);
       });
       const dimensionChanged = Dimensions.addEventListener('change', () => {
-          console.log("hide");
           setHeight(Dimensions.get('window').height);
       });
 
@@ -58,7 +48,7 @@ function App() {
                 </NavigationContainer>
               </PaperProvider>
           </SafeAreaProvider>
-      </SafeAreaView>
+      </SafeAreaView> 
   );
 }
 
