@@ -1,24 +1,314 @@
-import React, { useRef, useState } from 'react';
-import { Button, Chip, Dialog, Portal, SegmentedButtons, Text, TextInput} from 'react-native-paper';
-import { FlatList, Image, ScrollView, View } from 'react-native';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { Button, Checkbox, Chip, Dialog, IconButton, Portal, SegmentedButtons, Text, TextInput} from 'react-native-paper';
+import { Image, ScrollView, View } from 'react-native';
 import Title from '@components/title/Title';
-import Collection from '@components/collection/CollectionUser';
 
 function Search({navigation}: any): JSX.Element {
-  const flatListRef = useRef<FlatList<{ name: string; isEditable: boolean;}>>(null);
-  const [data, setData] = useState([
-    {name: 'BGG Ranking', isEditable: false},
-  ]);
-  const [rerender, setRerender] = useState(new Date());
-  const [selectedItem, setSelectedItem] = useState('');
-  const [value, setValue] = React.useState('');
-  const [visible, setVisible] = React.useState(false);
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
 
-  const onSetupButtonPressCallback = () => {
+  interface SearchModel {
+    numPlayers: string;
+    duration: string;
+    difficulty: string;
+    mechanics: string[];
+    categories: string[];
+  };
+
+  const [categories, setCategories] = useState([
+    {name: 'Abstract Strategy', checked: false},
+    {name: 'Action / Dexterity', checked: false},
+    {name: 'Adventure', checked: false},
+    {name: 'Age of Reason', checked: false},
+    {name: 'American Civil War', checked: false},
+    {name: 'American Indian Wars', checked: false},
+    {name: 'American Revolutionary War', checked: false},
+    {name: 'American West', checked: false},
+    {name: 'Ancient', checked: false},
+    {name: 'Animals', checked: false},
+    {name: 'Arabian', checked: false},
+    {name: 'Aviation / Flight', checked: false},
+    {name: 'Bluffing', checked: false},
+    {name: 'Book', checked: false},
+    {name: 'Card Game', checked: false},
+    {name: 'Childrens Game', checked: false},
+    {name: 'City Building', checked: false},
+    {name: 'Civil War', checked: false},
+    {name: 'Civilization', checked: false},
+    {name: 'Collectible Components', checked: false},
+    {name: 'Comic Book / Strip', checked: false},
+    {name: 'Deduction', checked: false},
+    {name: 'Dice', checked: false},
+    {name: 'Economic', checked: false},
+    {name: 'Educational', checked: false},
+    {name: 'Electronic', checked: false},
+    {name: 'Environmental', checked: false},
+    {name: 'Expansion for Base-game', checked: false},
+    {name: 'Exploration', checked: false},
+    {name: 'Fan Expansion', checked: false},
+    {name: 'Fantasy', checked: false},
+    {name: 'Farming', checked: false},
+    {name: 'Fighting', checked: false},
+    {name: 'Game System', checked: false},
+    {name: 'Horror', checked: false},
+    {name: 'Humor', checked: false},
+    {name: 'Industry / Manufacturing', checked: false},
+    {name: 'Korean War', checked: false},
+    {name: 'Mafia', checked: false},
+    {name: 'Math', checked: false},
+    {name: 'Mature / Adult', checked: false},
+    {name: 'Maze', checked: false},
+    {name: 'Medical', checked: false},
+    {name: 'Medieval', checked: false},
+    {name: 'Memory', checked: false},
+    {name: 'Miniatures', checked: false},
+    {name: 'Modern Warfare', checked: false},
+    {name: 'Movies / TV / Radio theme', checked: false},
+    {name: 'Murder/Mystery', checked: false},
+    {name: 'Music', checked: false},
+    {name: 'Mythology', checked: false},
+    {name: 'Napoleonic', checked: false},
+    {name: 'Nautical', checked: false},
+    {name: 'Negotiation', checked: false},
+    {name: 'Novel-based', checked: false},
+    {name: 'Number', checked: false},
+    {name: 'Party Game', checked: false},
+    {name: 'Pike and Shot', checked: false},
+    {name: 'Pirates', checked: false},
+    {name: 'Political', checked: false},
+    {name: 'Post-Napoleonic', checked: false},
+    {name: 'Prehistoric', checked: false},
+    {name: 'Print & Play', checked: false},
+    {name: 'Puzzle', checked: false},
+    {name: 'Racing', checked: false},
+    {name: 'Real-time', checked: false},
+    {name: 'Religious', checked: false},
+    {name: 'Renaissance', checked: false},
+    {name: 'Science Fiction', checked: false},
+    {name: 'Space Exploration', checked: false},
+    {name: 'Spies/Secret Agents', checked: false},
+    {name: 'Sports', checked: false},
+    {name: 'Territory Building', checked: false},
+    {name: 'Trains', checked: false},
+    {name: 'Transportation', checked: false},
+    {name: 'Travel', checked: false},
+    {name: 'Trivia', checked: false},
+    {name: 'Video Game Theme', checked: false},
+    {name: 'Vietnam War', checked: false},
+    {name: 'Wargame', checked: false},
+    {name: 'Word Game', checked: false},
+    {name: 'World War I', checked: false},
+    {name: 'World War II', checked: false},
+    {name: 'Zombies', checked: false},
+  ]);
+
+  const [mechanics, setMechanics] = useState([
+    {name: 'Acting', checked: false},
+    {name: 'Action Drafting', checked: false},
+    {name: 'Action Points', checked: false},
+    {name: 'Action Queue', checked: false},
+    {name: 'Action Retrieval', checked: false},
+    {name: 'Action Timer', checked: false},
+    {name: 'Action/Event', checked: false},
+    {name: 'Advantage Token', checked: false},
+    {name: 'Alliances', checked: false},
+    {name: 'Area Majority / Influence', checked: false},
+    {name: 'Area Movement', checked: false},
+    {name: 'Area-Impulse', checked: false},
+    {name: 'Auction', checked: false},
+    {name: 'Automatic Resource Growth', checked: false},
+    {name: 'Betting and Bluffing', checked: false},
+    {name: 'Bias', checked: false},
+    {name: 'Bids As Wagers', checked: false},
+    {name: 'Bingo', checked: false},
+    {name: 'Bribery', checked: false},
+    {name: 'Campaign / Battle Card Driven', checked: false},
+    {name: 'Card Play Conflict Resolution', checked: false},
+    {name: 'Catch the Leader', checked: false},
+    {name: 'Chaining', checked: false},
+    {name: 'Chit-Pull System', checked: false},
+    {name: 'Closed Drafting', checked: false},
+    {name: 'Closed Economy Auction', checked: false},
+    {name: 'Command Cards', checked: false},
+    {name: 'Commodity Speculation', checked: false},
+    {name: 'Communication Limits', checked: false},
+    {name: 'Connections', checked: false},
+    {name: 'Constrained Bidding', checked: false},
+    {name: 'Contracts', checked: false},
+    {name: 'Cooperative Game', checked: false},
+    {name: 'Crayon Rail System', checked: false},
+    {name: 'Critical Hits and Failures', checked: false},
+    {name: 'Cube Tower', checked: false},
+    {name: 'Deck Construction', checked: false},
+    {name: 'Deck, Bag, and Pool Building', checked: false},
+    {name: 'Deduction', checked: false},
+    {name: 'Delayed Purchase', checked: false},
+    {name: 'Dice Rolling', checked: false},
+    {name: 'Die Icon Resolution', checked: false},
+    {name: 'Different Dice Movement', checked: false},
+    {name: 'Drawing', checked: false},
+    {name: 'Elapsed Real Time Ending', checked: false},
+    {name: 'Enclosure', checked: false},
+    {name: 'End Game Bonuses', checked: false},
+    {name: 'Events', checked: false},
+    {name: 'Finale Ending', checked: false},
+    {name: 'Flicking', checked: false},
+    {name: 'Follow', checked: false},
+    {name: 'Force Commitment', checked: false},
+    {name: 'Grid Coverage', checked: false},
+    {name: 'Grid Movement', checked: false},
+    {name: 'Hand Management', checked: false},
+    {name: 'Hexagon Grid', checked: false},
+    {name: 'Hidden Movement', checked: false},
+    {name: 'Hidden Roles', checked: false},
+    {name: 'Hidden Victory Points', checked: false},
+    {name: 'Highest-Lowest Scoring', checked: false},
+    {name: 'Hot Potato', checked: false},
+    {name: 'I Cut, You Choose', checked: false},
+    {name: 'Impulse Movement', checked: false},
+    {name: 'Income', checked: false},
+    {name: 'Increase Value of Unchosen Resources', checked: false},
+    {name: 'Induction', checked: false},
+    {name: 'Interrupts', checked: false},
+    {name: 'Investment', checked: false},
+    {name: 'Kill Steal', checked: false},
+    {name: 'King of the Hill', checked: false},
+    {name: 'Ladder Climbing', checked: false},
+    {name: 'Layering', checked: false},
+    {name: 'Legacy Game', checked: false},
+    {name: 'Line Drawing', checked: false},
+    {name: 'Line of Sight', checked: false},
+    {name: 'Loans', checked: false},
+    {name: 'Lose a Turn', checked: false},
+    {name: 'Mancala', checked: false},
+    {name: 'Map Addition', checked: false},
+    {name: 'Map Deformation', checked: false},
+    {name: 'Map Reduction', checked: false},
+    {name: 'Market', checked: false},
+    {name: 'Matching', checked: false},
+    {name: 'Measurement Movement', checked: false},
+    {name: 'Melding and Splaying', checked: false},
+    {name: 'Memory', checked: false},
+    {name: 'Minimap Resolution', checked: false},
+    {name: 'Modular Board', checked: false},
+    {name: 'Move Through Deck', checked: false},
+    {name: 'Movement Points', checked: false},
+    {name: 'Movement Template', checked: false},
+    {name: 'Moving Multiple Units', checked: false},
+    {name: 'Multi-Use Cards', checked: false},
+    {name: 'Multiple Maps', checked: false},
+    {name: 'Narrative Choice / Paragraph', checked: false},
+    {name: 'Negotiation', checked: false},
+    {name: 'Neighbor Scope', checked: false},
+    {name: 'Network and Route Building', checked: false},
+    {name: 'Once-Per-Game Abilities', checked: false},
+    {name: 'Open Drafting', checked: false},
+    {name: 'Order Counters', checked: false},
+    {name: 'Ordering', checked: false},
+    {name: 'Ownership', checked: false},
+    {name: 'Paper-and-Pencil', checked: false},
+    {name: 'Passed Action Token', checked: false},
+    {name: 'Pattern Building', checked: false},
+    {name: 'Pattern Movement', checked: false},
+    {name: 'Pattern Recognition', checked: false},
+    {name: 'Physical Removal', checked: false},
+    {name: 'Pick-up and Deliver', checked: false},
+    {name: 'Pieces as Map', checked: false},
+    {name: 'Player Elimination', checked: false},
+    {name: 'Player Judge', checked: false},
+    {name: 'Point to Point Movement', checked: false},
+    {name: 'Predictive Bid', checked: false},
+    {name: 'Prisoners Dilemma', checked: false},
+    {name: 'Programmed Movement', checked: false},
+    {name: 'Push Your Luck', checked: false},
+    {name: 'Questions and Answers', checked: false},
+    {name: 'Race', checked: false},
+    {name: 'Random Production', checked: false},
+    {name: 'Ratio / Combat Results Table', checked: false},
+    {name: 'Re-rolling and Locking', checked: false},
+    {name: 'Real-Time', checked: false},
+    {name: 'Relative Movement', checked: false},
+    {name: 'Resource Queue', checked: false},
+    {name: 'Resource to Move', checked: false},
+    {name: 'Rock-Paper-Scissors', checked: false},
+    {name: 'Role Playing', checked: false},
+    {name: 'Roles with Asymmetric Information', checked: false},
+    {name: 'Roll / Spin and Move', checked: false},
+    {name: 'Rondel', checked: false},
+    {name: 'Scenario / Mission / Campaign Game', checked: false},
+    {name: 'Score-and-Reset Game', checked: false},
+    {name: 'Secret Unit Deployment', checked: false},
+    {name: 'Selection Order Bid', checked: false},
+    {name: 'Semi-Cooperative Game', checked: false},
+    {name: 'Set Collection', checked: false},
+    {name: 'Simulation', checked: false},
+    {name: 'Simultaneous Action Selection', checked: false},
+    {name: 'Singing', checked: false},
+    {name: 'Single Loser Game', checked: false},
+    {name: 'Slide/Push', checked: false},
+    {name: 'Solo / Solitaire Game', checked: false},
+    {name: 'Speed Matching', checked: false},
+    {name: 'Square Grid', checked: false},
+    {name: 'Stacking and Balancing', checked: false},
+    {name: 'Stat Check Resolution', checked: false},
+    {name: 'Static Capture', checked: false},
+    {name: 'Stock Holding', checked: false},
+    {name: 'Storytelling', checked: false},
+    {name: 'Sudden Death Ending', checked: false},
+    {name: 'Tags', checked: false},
+    {name: 'Take That', checked: false},
+    {name: 'Targeted Clues', checked: false},
+    {name: 'Team-Based Game', checked: false},
+    {name: 'Tech Trees / Tech Tracks', checked: false},
+    {name: 'Three Dimensional Movement', checked: false},
+    {name: 'Tile Placement', checked: false},
+    {name: 'Track Movement', checked: false},
+    {name: 'Trading', checked: false},
+    {name: 'Traitor Game', checked: false},
+    {name: 'Trick-taking', checked: false},
+    {name: 'Tug of War', checked: false},
+    {name: 'Turn Order', checked: false},
+    {name: 'Variable Phase Order', checked: false},
+    {name: 'Variable Player Powers', checked: false},
+    {name: 'Variable Set-up', checked: false},
+    {name: 'Victory Points as a Resource', checked: false},
+    {name: 'Voting', checked: false},
+    {name: 'Worker Placement', checked: false},
+    {name: 'Zone of Control', checked: false},
+  ]);
+
+  const [search, setSearch] : [SearchModel, Dispatch<SetStateAction<SearchModel>>] = useState<SearchModel>({} as SearchModel);
+  const [visibleMechanics, setVisibleMechanics] = React.useState(false);
+  const [visibleCategories, setVisibleCategories] = React.useState(false);
+
+  const showDialogMechanics = () => {
+    mechanics.forEach(m=>
+      m.checked = !!search.mechanics?.find(name=> name === m.name))
+    setVisibleMechanics(true);
+  }
+  const hideDialogMechanics = () => {
+    search.mechanics = mechanics.filter(m=> m.checked).map(m=> m.name);
+    setVisibleMechanics(false);
+  }
+  const showDialogCategories = () => {
+    categories.forEach(m=>
+      m.checked = !!search.categories?.find(name=> name === m.name))
+    setVisibleCategories(true);
+  }
+  const hideDialogCategories = () => {
+    search.categories = categories.filter(m=> m.checked).map(m=> m.name);
+    setVisibleCategories(false);
+  }
+
+  const onSearchButtonPressCallback = () => {
     navigation.navigate('Search');
   }
+
+  const numPlayerHasValue = () => !!search.numPlayers;
+  const durationHasValue = () => !!search.duration;
+  const difficultyHasValue = () => !!search.difficulty;
+  const mechanicsHasValue = () => !!search.mechanics && search.mechanics.length > 0;
+  const categoriesHasValue = () => !!search.categories && search.categories.length > 0;
+  const searchHasValue = () => numPlayerHasValue() || durationHasValue() || difficultyHasValue()
+    || mechanicsHasValue() || categoriesHasValue ();
 
   return (
     <View style={{flex: 1}}>
@@ -27,30 +317,83 @@ function Search({navigation}: any): JSX.Element {
         <ScrollView         
           removeClippedSubviews={false}
         >
-          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: '#04FD9420', marginTop: 20, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
-            <Image style={{height:72, width: 72}} source={require('@assets/images/collection.png')}/>
-            <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
-                <Text style={{textAlign: 'center', fontFamily: 'BellotaText'}}>Number of Players</Text>
-                <TextInput style={{textAlign: 'center', backgroundColor: 'transparent'}} inputMode={'numeric'} />
+          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: numPlayerHasValue() ? '#04FD9420' : '#CCCCCC20', marginVertical: 10, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
+            <Image style={{height:72, width: 72}} source={require('@assets/images/num_players.png')}/>
+            <View style={{flex: 1, marginHorizontal: 10}}>
+              <View style={{flexDirection:'row', justifyContent: 'flex-end', alignContent: 'center'}}>
+                <Text style={{ flex: 1, textAlign: 'center', fontFamily: 'BellotaText', marginBottom:5}}>Number of Players</Text>
+                {
+                  numPlayerHasValue() ? 
+                    <IconButton icon={'close-circle'} style={{position:'absolute', top: -15}} onPress={() => setSearch({...search, numPlayers: ''})}/>
+                    : <View></View>
+                }
+              </View>
+              <SegmentedButtons
+                  value={search.numPlayers}
+                  onValueChange={(value) => setSearch({...search, numPlayers: value})}
+                  buttons={[
+                    {
+                      value: 'small',
+                      label: 'Small',
+                    },
+                    {
+                      value: 'medium',
+                      label: 'Medium',
+                    },
+                    { value: 'large',
+                    label: 'Large'
+                  },
+                ]}
+                />
             </View>
           </View>
 
-          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: '#04FD9420', marginTop: 20, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
-            <Image style={{height:72, width: 72}} source={require('@assets/images/collection.png')}/>
+          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: durationHasValue() ? '#04FD9420' : '#CCCCCC20', marginVertical: 10, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
+            <Image style={{height:72, width: 72}} source={require('@assets/images/duration.png')}/>
             <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
-                <Text style={{textAlign: 'center', fontFamily: 'BellotaText'}}>Durations</Text>
-                <TextInput style={{textAlign: 'center', backgroundColor: 'transparent'}} inputMode={'numeric'} />
-            </View>
-          </View>
-
-          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: '#04FD9420', marginTop: 20, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
-            <Image style={{height:72, width: 72}} source={require('@assets/images/collection.png')}/>
-            <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
-                <Text style={{textAlign: 'center', fontFamily: 'BellotaText'}}>Difficult</Text>
+                <View style={{flexDirection:'row', justifyContent: 'flex-end', alignContent: 'center'}}>
+                  <Text style={{ flex: 1, textAlign: 'center', fontFamily: 'BellotaText', marginBottom:5}}>Duration</Text>
+                  {
+                    durationHasValue() ? 
+                      <IconButton icon={'close-circle'} style={{position:'absolute', top: -15}} onPress={() => setSearch({...search, duration: ''})}/>
+                      : <View></View>
+                  }
+                </View>                
                 <SegmentedButtons
-                  value={value}
-                  onValueChange={setValue}
-                  density={'small'}
+                  value={search.duration}
+                  onValueChange={(value) => setSearch({...search, duration: value})}
+                  buttons={[
+                    {
+                      value: 'short',
+                      label: 'Short',
+                    },
+                    {
+                      value: 'medium',
+                      label: 'Medium',
+                    },
+                    { 
+                      value: 'long',
+                      label: 'Long'
+                    },
+                  ]}
+                />
+            </View>
+          </View>
+
+          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: difficultyHasValue() ? '#04FD9420' : '#CCCCCC20', marginVertical: 10, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
+            <Image style={{height:72, width: 72}} source={require('@assets/images/difficult.png')}/>
+            <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
+                <View style={{flexDirection:'row', justifyContent: 'flex-end', alignContent: 'center'}}>
+                  <Text style={{ flex: 1, textAlign: 'center', fontFamily: 'BellotaText', marginBottom:5}}>Difficulty</Text>
+                  {
+                    difficultyHasValue() ? 
+                      <IconButton icon={'close-circle'} style={{position:'absolute', top: -15}} onPress={() => setSearch({...search, difficulty: ''})}/>
+                      : <View></View>
+                  }
+                </View> 
+                <SegmentedButtons
+                  value={search.difficulty}
+                  onValueChange={(value) => setSearch({...search, difficulty: value})}
                   buttons={[
                     {
                       value: 'easy',
@@ -60,25 +403,115 @@ function Search({navigation}: any): JSX.Element {
                       value: 'medium',
                       label: 'Medium',
                     },
-                    { value: 'hard', label: 'Hard' },
+                    { 
+                      value: 'hard', 
+                      label: 'Hard'
+                    },
                   ]}
                 />
             </View>
           </View>
 
-          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: '#04FD9420', marginTop: 20, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
-            <Image style={{height:72, width: 72}} source={require('@assets/images/collection.png')}/>
-            <View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
-                <Text style={{textAlign: 'center', fontFamily: 'BellotaText'}}>Mechanic</Text>
-                <Button onPress={showDialog}>Show Dialog</Button>
+          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: mechanicsHasValue() ? '#04FD9420' : '#CCCCCC20', marginVertical: 10, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
+            <Image style={{height:72, width: 72}} source={require('@assets/images/mechanic.png')}/>
+            <View style={{flex: 1, marginHorizontal: 10}}>
+                <View style={{flexDirection:'row', justifyContent: 'flex-end', alignContent: 'center'}}>
+                  <Text style={{ flex: 1, textAlign: 'center', fontFamily: 'BellotaText', marginBottom:5}}>Mechanics</Text>
+                  {
+                    mechanicsHasValue() ? 
+                      <IconButton icon={'close-circle'} style={{position:'absolute', top: -15}} onPress={() => setSearch({...search, mechanics: []})}/>
+                      : <View></View>
+                  }
+                </View> 
+                <View style={{flexDirection: 'row'}}>
+                  <IconButton icon={'magnify'} onPress={showDialogMechanics}/>
+                  <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {
+                    !mechanicsHasValue() ?
+                      <Text style={{margin: 12}}>Choose mechanics</Text>
+                    :
+                    search.mechanics.map(m => <Chip key={m} closeIcon={'close'} onClose={() => setSearch({...search, mechanics: search.mechanics.filter(sf=> sf !== m)})} style={{ marginLeft: 5, marginTop: 5}} textStyle={{fontSize: 9}}>{m}</Chip>)
+                  }
+                  </View>
+                </View>
                 <Portal>
-                  <Dialog visible={visible} onDismiss={hideDialog}>
+                  <Dialog visible={visibleMechanics} onDismiss={hideDialogMechanics} style={{flex:1}}>
                     <Dialog.Title>Alert</Dialog.Title>
                     <Dialog.Content>
-                      <Text variant="bodyMedium">This is simple dialog</Text>
+                      {<Text>'Teste'</Text>}
                     </Dialog.Content>
+                    <Dialog.ScrollArea>
+                    <ScrollView
+                      removeClippedSubviews={false}
+                      >
+                    {
+                      mechanics.map((m, i) => <Checkbox.Item
+                        key={m.name}
+                        status={m.checked ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                          mechanics[i].checked = !mechanics[i].checked;
+                          setMechanics([...mechanics]);
+                        }}
+                        label={m.name}
+                      />)
+                    }
+                    </ScrollView>
+                    </Dialog.ScrollArea>
                     <Dialog.Actions>
-                      <Button onPress={hideDialog}>Done</Button>
+                      <Button onPress={hideDialogMechanics}>Done</Button>
+                    </Dialog.Actions>
+                  </Dialog>
+                </Portal>
+            </View>
+          </View>
+
+          <View style={{zIndex: 999, shadowColor: 'black', shadowOpacity: 1, shadowOffset: { width: 10, height: 10}, flexDirection: 'row', backgroundColor: categoriesHasValue() ? '#04FD9420' : '#CCCCCC20', marginVertical: 10, marginHorizontal: 20, borderRadius: 10, padding: 10}}>
+            <Image style={{height:72, width: 72}} source={require('@assets/images/category.png')}/>
+            <View style={{flex: 1, marginHorizontal: 10}}>
+                <View style={{flexDirection:'row', justifyContent: 'flex-end', alignContent: 'center'}}>
+                  <Text style={{ flex: 1, textAlign: 'center', fontFamily: 'BellotaText', marginBottom:5}}>Categories</Text>
+                  {
+                    categoriesHasValue() ? 
+                      <IconButton icon={'close-circle'} style={{position:'absolute', top: -15}} onPress={() => setSearch({...search, categories: []})}/>
+                      : <View></View>
+                  }
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <IconButton icon={'magnify'} onPress={showDialogCategories}/>
+                  <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {
+                    !categoriesHasValue() ?
+                      <Text style={{margin: 12}}>Choose categories</Text>
+                    :
+                    search.categories.map(m => <Chip key={m} closeIcon={'close'} onClose={() => setSearch({...search, categories: search.categories.filter(sf=> sf !== m)})} style={{ marginLeft: 5, marginTop: 5}} textStyle={{fontSize: 9}}>{m}</Chip>)
+                  }
+                  </View>
+                </View>
+                <Portal>
+                  <Dialog visible={visibleCategories} onDismiss={hideDialogCategories} style={{flex:1}}>
+                    <Dialog.Title>Alert</Dialog.Title>
+                    <Dialog.Content>
+                      {<Text>'Teste'</Text>}
+                    </Dialog.Content>
+                    <Dialog.ScrollArea>
+                    <ScrollView
+                      removeClippedSubviews={false}
+                      >
+                    {
+                      categories.map((m, i) => <Checkbox.Item
+                        key={m.name}
+                        status={m.checked ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                          categories[i].checked = !categories[i].checked;
+                          setCategories([...categories]);
+                        }}
+                        label={m.name}
+                      />)
+                    }
+                    </ScrollView>
+                    </Dialog.ScrollArea>
+                    <Dialog.Actions>
+                      <Button onPress={hideDialogCategories}>Done</Button>
                     </Dialog.Actions>
                   </Dialog>
                 </Portal>
@@ -86,9 +519,10 @@ function Search({navigation}: any): JSX.Element {
           </View>
         </ScrollView>
       </View>
-      <View onTouchEndCapture={onSetupButtonPressCallback} style={{flexDirection: 'row', backgroundColor: selectedItem ? '#4504FD20' : '#CCCCCC20', padding: 10, justifyContent:'center', alignItems: 'center'}}>
+
+      <View onTouchEndCapture={() => searchHasValue() && onSearchButtonPressCallback()} style={{flexDirection: 'row', backgroundColor: searchHasValue() ? '#4504FD20' : '#CCCCCC20', marginTop: 10, padding: 10, justifyContent:'center', alignItems: 'center'}}>
             <Image style={{height:64, width: 64}} source={require('@assets/images/search.png')}/>
-            <View style={{ marginLeft: 10, marginRight: 10}}>
+            <View style={{marginHorizontal: 10}}>
                 <Text style={{textAlign: 'center', fontFamily: 'BellotaText', fontSize:32}}>SEARCH</Text>
             </View>
         </View>
