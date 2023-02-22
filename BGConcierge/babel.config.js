@@ -9,6 +9,7 @@ module.exports = {
           "@assets": "./assets/",
           "@components": "./src/shared/components/",
           "@hooks": "./src/shared/hooks/",
+          "@styles": "./src/shared/styles/",
         }
       }
     ]

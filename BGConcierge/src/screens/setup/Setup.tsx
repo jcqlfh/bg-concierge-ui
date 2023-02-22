@@ -3,6 +3,7 @@ import { Button, Text} from 'react-native-paper';
 import { FlatList, Image, View } from 'react-native';
 import Title from '@components/title/Title';
 import CollectionUser from '@components/collection/CollectionUser';
+import CommonStyles from '@styles/common.style';
 
 function Setup({navigation}: any): JSX.Element {
   const flatListRef = useRef<FlatList<{ name: string; isEditable: boolean;}>>(null);
@@ -28,11 +29,11 @@ function Setup({navigation}: any): JSX.Element {
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View style={CommonStyles.Styles.expandSize}>
       <Title text={'Choose a Collection'} />
       <Button 
         icon='plus' 
-        style={{margin:10}}buttonColor='#4504FD20' 
+        style={{margin:10}}buttonColor={CommonStyles.Colors.secondary} 
         onPress={onAddCollectionButtonPressCallback}>
         Add Collection
       </Button>
@@ -78,10 +79,11 @@ function Setup({navigation}: any): JSX.Element {
       <View>
 
       </View>
-      <View onTouchEndCapture={onSetupButtonPressCallback} style={{flexDirection: 'row', backgroundColor: selectedItem ? '#4504FD20' : '#CCCCCC20', padding: 10, justifyContent:'center', alignItems: 'center'}}>
-            <Image style={{height:64, width: 64}} source={require('@assets/images/collection.png')}/>
-            <View style={{ marginLeft: 10, marginRight: 10}}>
-                <Text style={{textAlign: 'center', fontFamily: 'BellotaText', fontSize:32}}>SET UP</Text>
+      <View onTouchEndCapture={onSetupButtonPressCallback}
+        style={[{flexDirection: 'row', backgroundColor: selectedItem ? CommonStyles.Colors.secondary : CommonStyles.Colors.gray, padding: 10}, CommonStyles.Styles.centerContent]}>
+            <Image style={CommonStyles.Styles.squareSize64} source={require('@assets/images/collection.png')}/>
+            <View style={{ marginHorizontal: 10}}>
+                <Text style={CommonStyles.Styles.bottomButtonText}>SET UP</Text>
             </View>
         </View>
     </View>
