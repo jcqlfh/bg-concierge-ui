@@ -301,7 +301,7 @@ function SearchView({navigation}: any): JSX.Element {
   };
 
   const onSearchButtonPressCallback = () => {
-    navigation.navigate('Search');
+    navigation.navigate('Suggestion');
   };
 
   const numPlayerHasValue = () => !!search.numPlayers;

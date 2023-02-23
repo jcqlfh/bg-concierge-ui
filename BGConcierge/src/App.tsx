@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { Dimensions, Keyboard, SafeAreaView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Header from '@components/header/Header';
 import SetupView from './screens/setup/views/SetupView';
 import SearchView from './screens/search/views/SearchView';
-import Header from '@components/header/Header';
+import SuggestionView from './screens/suggestion/views/SuggestionView';
+import SuggestionContext from './shared/context/SuggestionContext';
 
 function App() {
   const Stack = createNativeStackNavigator();
@@ -31,21 +33,25 @@ function App() {
 
   })
 
-
   return (
       <SafeAreaView style={{height: height}}>
           <SafeAreaProvider>
               <PaperProvider>
-                <NavigationContainer >
-                  <Stack.Navigator>
-                    <Stack.Screen name="Setup" component={SetupView} 
-                      options={{ header: (props) => <Header />}}
-                    />
-                    <Stack.Screen name="Search" component={SearchView} 
-                      options={{ header: (props) => <Header />}}
-                    />
-                  </Stack.Navigator>
-                </NavigationContainer>
+                <SuggestionContext.Provider value={{}}>
+                  <NavigationContainer >
+                    <Stack.Navigator>
+                      <Stack.Screen name="Setup" component={SetupView} 
+                        options={({ navigation }) => ({ header: () => <Header onPress={() => navigation.navigate('Setup')} />})}
+                      />
+                      <Stack.Screen name="Search" component={SearchView} 
+                        options={({ navigation }) => ({ header: () => <Header onPress={() => navigation.navigate('Setup')} />})}
+                      />
+                      <Stack.Screen name="Suggestion" component={SuggestionView} 
+                        options={({ navigation }) => ({ header: () => <Header onPress={() => navigation.navigate('Setup')} />})}
+                      />
+                    </Stack.Navigator>
+                  </NavigationContainer>
+                </SuggestionContext.Provider>
               </PaperProvider>
           </SafeAreaProvider>
       </SafeAreaView> 

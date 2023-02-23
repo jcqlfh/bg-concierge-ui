@@ -15,6 +15,10 @@ const CommonStyles = {
       height: 64,
       width: 64,
     },
+    squareSize24: {
+      height: 24,
+      width: 24,
+    },
     secondaryText: {
       textAlign: 'center',
       fontFamily: 'BellotaText',
@@ -50,6 +54,7 @@ const CommonStyles = {
   Colors: {
     primary: '#04FD9420',
     secondary: '#4504FD20',
+    tertiary: '#04FD9408',
     gray: '#CCCCCC20',
   },
 };
