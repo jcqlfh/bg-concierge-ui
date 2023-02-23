@@ -4,8 +4,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SetupView from './screens/setup/view/SetupView';
-import SearchView from './screens/search/view/SearchView';
+import SetupView from './screens/setup/views/SetupView';
+import SearchView from './screens/search/views/SearchView';
 import Header from '@components/header/Header';
 
 function App() {
