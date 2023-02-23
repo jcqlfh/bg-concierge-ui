@@ -1,6 +1,10 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Button, Checkbox, Chip, Dialog, IconButton, Portal, SegmentedButtons, Text, TextInput} from 'react-native-paper';
-import { Image, ScrollView, View } from 'react-native';
+import React, {useState} from 'react';
+import {
+  Portal,
+  SegmentedButtons,
+  Text,
+} from 'react-native-paper';
+import {Image, ScrollView, View} from 'react-native';
 import Title from '@components/title/Title';
 import CommonStyles from '@styles/common.style';
 import ListChooser from '@components/listChooser/ListChooser';
@@ -8,14 +12,13 @@ import CloseButton from '@components/closeButton/CloseButton';
 import ListDisplay from '@components/listDisplay/ListDisplay';
 
 function Search({navigation}: any): JSX.Element {
-
   interface SearchModel {
     numPlayers: string;
     duration: string;
     difficulty: string;
     mechanics: string[];
     categories: string[];
-  };
+  }
 
   const [categories, setCategories] = useState([
     {name: 'Abstract Strategy', checked: false},
@@ -284,84 +287,134 @@ function Search({navigation}: any): JSX.Element {
   const [visibleCategories, setVisibleCategories] = React.useState(false);
 
   const showDialogMechanics = () => {
-    mechanics.forEach(m => m.checked = !!search.mechanics?.find(name=> name === m.name));
+    mechanics.forEach(
+      m => (m.checked = !!search.mechanics?.find(name => name === m.name)),
+    );
     setVisibleMechanics(true);
-  }
+  };
   const hideDialogMechanics = () => {
-    search.mechanics = mechanics.filter(m => m.checked).map(m=> m.name);
+    search.mechanics = mechanics.filter(m => m.checked).map(m => m.name);
     setVisibleMechanics(false);
-  }
+  };
   const showDialogCategories = () => {
-    categories.forEach(m => m.checked = !!search.categories?.find(name=> name === m.name));
+    categories.forEach(
+      m => (m.checked = !!search.categories?.find(name => name === m.name)),
+    );
     setVisibleCategories(true);
-  }
+  };
   const hideDialogCategories = () => {
-    search.categories = categories.filter(m => m.checked).map(m=> m.name);
+    search.categories = categories.filter(m => m.checked).map(m => m.name);
     setVisibleCategories(false);
-  }
+  };
 
   const onSearchButtonPressCallback = () => {
     navigation.navigate('Search');
-  }
+  };
 
   const numPlayerHasValue = () => !!search.numPlayers;
   const durationHasValue = () => !!search.duration;
   const difficultyHasValue = () => !!search.difficulty;
-  const mechanicsHasValue = () => !!search.mechanics && search.mechanics.length > 0;
-  const categoriesHasValue = () => !!search.categories && search.categories.length > 0;
-  const searchHasValue = () => numPlayerHasValue() || durationHasValue() || difficultyHasValue()
-    || mechanicsHasValue() || categoriesHasValue ();
+  const mechanicsHasValue = () =>
+    !!search.mechanics && search.mechanics.length > 0;
+  const categoriesHasValue = () =>
+    !!search.categories && search.categories.length > 0;
+  const searchHasValue = () =>
+    numPlayerHasValue() ||
+    durationHasValue() ||
+    difficultyHasValue() ||
+    mechanicsHasValue() ||
+    categoriesHasValue();
 
   return (
     <View style={CommonStyles.Styles.expandSize}>
       <Title text={'Select the Parameters'} />
       <View style={CommonStyles.Styles.expandSize}>
-        <ScrollView         
-          removeClippedSubviews={false}
-        >
+        <ScrollView removeClippedSubviews={false}>
           {/* #NUM PLAYERS VIEW */}
-          <View style={[{flexDirection: 'row', backgroundColor: numPlayerHasValue() ? CommonStyles.Colors.primary : CommonStyles.Colors.gray}, CommonStyles.Styles.defaultSpacing]}>
-            <Image style={CommonStyles.Styles.squareSize64} source={require('@assets/images/num_players.png')}/>
-            <View style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
+          <View
+            style={[
+              {
+                flexDirection: 'row',
+                backgroundColor: numPlayerHasValue()
+                  ? CommonStyles.Colors.primary
+                  : CommonStyles.Colors.gray,
+              },
+              CommonStyles.Styles.defaultSpacing,
+            ]}>
+            <Image
+              style={CommonStyles.Styles.squareSize64}
+              source={require('@assets/images/num_players.png')}
+            />
+            <View
+              style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
               <View style={CommonStyles.Styles.rowReverseCentered}>
-                <Text style={[CommonStyles.Styles.secondaryText, CommonStyles.Styles.expandSize, {marginBottom:5}]}>Number of Players</Text>
-                <CloseButton isVisible={numPlayerHasValue()}
-                      onPress={() => setSearch({...search, numPlayers: ''})}
-                  />
+                <Text
+                  style={[
+                    CommonStyles.Styles.secondaryText,
+                    CommonStyles.Styles.expandSize,
+                    {marginBottom: 5},
+                  ]}>
+                  Number of Players
+                </Text>
+                <CloseButton
+                  isVisible={numPlayerHasValue()}
+                  onPress={() => setSearch({...search, numPlayers: ''})}
+                />
               </View>
               <SegmentedButtons
-                  value={search.numPlayers}
-                  onValueChange={(value) => setSearch({...search, numPlayers: value})}
-                  buttons={[
-                    {
-                      value: 'small',
-                      label: 'Small',
-                    },
-                    {
-                      value: 'medium',
-                      label: 'Medium',
-                    },
-                    { value: 'large',
-                    label: 'Large'
+                value={search.numPlayers}
+                onValueChange={value =>
+                  setSearch({...search, numPlayers: value})
+                }
+                buttons={[
+                  {
+                    value: 'small',
+                    label: 'Small',
                   },
+                  {
+                    value: 'medium',
+                    label: 'Medium',
+                  },
+                  {value: 'large', label: 'Large'},
                 ]}
-                />
+              />
             </View>
           </View>
 
           {/* DURATION VIEW */}
-          <View style={[{flexDirection: 'row', backgroundColor: durationHasValue() ? CommonStyles.Colors.primary : CommonStyles.Colors.gray}, CommonStyles.Styles.defaultSpacing]}>
-          <Image style={CommonStyles.Styles.squareSize64} source={require('@assets/images/duration.png')}/>
-            <View style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
+          <View
+            style={[
+              {
+                flexDirection: 'row',
+                backgroundColor: durationHasValue()
+                  ? CommonStyles.Colors.primary
+                  : CommonStyles.Colors.gray,
+              },
+              CommonStyles.Styles.defaultSpacing,
+            ]}>
+            <Image
+              style={CommonStyles.Styles.squareSize64}
+              source={require('@assets/images/duration.png')}
+            />
+            <View
+              style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
               <View style={CommonStyles.Styles.rowReverseCentered}>
-                <Text style={[CommonStyles.Styles.secondaryText, CommonStyles.Styles.expandSize, {marginBottom:5}]}>Duration</Text>
-                <CloseButton isVisible={durationHasValue()}
+                <Text
+                  style={[
+                    CommonStyles.Styles.secondaryText,
+                    CommonStyles.Styles.expandSize,
+                    {marginBottom: 5},
+                  ]}>
+                  Duration
+                </Text>
+                <CloseButton
+                  isVisible={durationHasValue()}
                   onPress={() => setSearch({...search, duration: ''})}
                 />
-              </View>                
+              </View>
               <SegmentedButtons
                 value={search.duration}
-                onValueChange={(value) => setSearch({...search, duration: value})}
+                onValueChange={value => setSearch({...search, duration: value})}
                 buttons={[
                   {
                     value: 'short',
@@ -371,9 +424,9 @@ function Search({navigation}: any): JSX.Element {
                     value: 'medium',
                     label: 'Medium',
                   },
-                  { 
+                  {
                     value: 'long',
-                    label: 'Long'
+                    label: 'Long',
                   },
                 ]}
               />
@@ -381,18 +434,42 @@ function Search({navigation}: any): JSX.Element {
           </View>
 
           {/* DIFFICULTY VIEW */}
-          <View style={[{flexDirection: 'row', backgroundColor: difficultyHasValue() ? CommonStyles.Colors.primary : CommonStyles.Colors.gray}, CommonStyles.Styles.defaultSpacing]}>
-          <Image style={CommonStyles.Styles.squareSize64} source={require('@assets/images/difficulty.png')}/>
-            <View style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
-              <View style={{flexDirection:'row-reverse', alignItems: 'center'}}>
-                <Text style={[CommonStyles.Styles.secondaryText, CommonStyles.Styles.expandSize, {marginBottom:5}]}>Difficulty</Text>
-                <CloseButton isVisible={difficultyHasValue()}
+          <View
+            style={[
+              {
+                flexDirection: 'row',
+                backgroundColor: difficultyHasValue()
+                  ? CommonStyles.Colors.primary
+                  : CommonStyles.Colors.gray,
+              },
+              CommonStyles.Styles.defaultSpacing,
+            ]}>
+            <Image
+              style={CommonStyles.Styles.squareSize64}
+              source={require('@assets/images/difficulty.png')}
+            />
+            <View
+              style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
+              <View
+                style={{flexDirection: 'row-reverse', alignItems: 'center'}}>
+                <Text
+                  style={[
+                    CommonStyles.Styles.secondaryText,
+                    CommonStyles.Styles.expandSize,
+                    {marginBottom: 5},
+                  ]}>
+                  Difficulty
+                </Text>
+                <CloseButton
+                  isVisible={difficultyHasValue()}
                   onPress={() => setSearch({...search, difficulty: ''})}
                 />
-              </View> 
+              </View>
               <SegmentedButtons
                 value={search.difficulty}
-                onValueChange={(value) => setSearch({...search, difficulty: value})}
+                onValueChange={value =>
+                  setSearch({...search, difficulty: value})
+                }
                 buttons={[
                   {
                     value: 'easy',
@@ -402,9 +479,9 @@ function Search({navigation}: any): JSX.Element {
                     value: 'medium',
                     label: 'Medium',
                   },
-                  { 
-                    value: 'hard', 
-                    label: 'Hard'
+                  {
+                    value: 'hard',
+                    label: 'Hard',
                   },
                 ]}
               />
@@ -412,63 +489,139 @@ function Search({navigation}: any): JSX.Element {
           </View>
 
           {/* MECHANICS VIEW */}
-          <View style={[{flexDirection: 'row', backgroundColor: mechanicsHasValue() ? CommonStyles.Colors.primary : CommonStyles.Colors.gray}, CommonStyles.Styles.defaultSpacing]}>
-          <Image style={CommonStyles.Styles.squareSize64} source={require('@assets/images/mechanic.png')}/>
-            <View style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
+          <View
+            style={[
+              {
+                flexDirection: 'row',
+                backgroundColor: mechanicsHasValue()
+                  ? CommonStyles.Colors.primary
+                  : CommonStyles.Colors.gray,
+              },
+              CommonStyles.Styles.defaultSpacing,
+            ]}>
+            <Image
+              style={CommonStyles.Styles.squareSize64}
+              source={require('@assets/images/mechanic.png')}
+            />
+            <View
+              style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
               <View style={CommonStyles.Styles.rowReverseCentered}>
-                <Text style={[CommonStyles.Styles.secondaryText, CommonStyles.Styles.expandSize, {marginBottom:5}]}>Mechanics</Text>
-                <CloseButton isVisible={mechanicsHasValue()}
+                <Text
+                  style={[
+                    CommonStyles.Styles.secondaryText,
+                    CommonStyles.Styles.expandSize,
+                    {marginBottom: 5},
+                  ]}>
+                  Mechanics
+                </Text>
+                <CloseButton
+                  isVisible={mechanicsHasValue()}
                   onPress={() => setSearch({...search, mechanics: []})}
                 />
-              </View> 
+              </View>
               <ListDisplay
-                title='Choose Mechanics'
-                onShowDialog={showDialogMechanics} 
-                showList={mechanicsHasValue()} 
+                title="Choose Mechanics"
+                onShowDialog={showDialogMechanics}
+                showList={mechanicsHasValue()}
                 data={search.categories}
-                onClearData={(m) => setSearch({...search, mechanics: search.mechanics.filter(sf=> sf !== m)})}
+                onClearData={m =>
+                  setSearch({
+                    ...search,
+                    mechanics: search.mechanics.filter(sf => sf !== m),
+                  })
+                }
               />
               <Portal>
-                <ListChooser isVisible={visibleMechanics} onDismiss={hideDialogMechanics} 
-                  data={mechanics} setData={setMechanics} />
+                <ListChooser
+                  isVisible={visibleMechanics}
+                  onDismiss={hideDialogMechanics}
+                  data={mechanics}
+                  setData={setMechanics}
+                />
               </Portal>
             </View>
           </View>
-          
+
           {/* CATEGORY VIEW */}
-          <View style={[{flexDirection: 'row', backgroundColor: categoriesHasValue() ? CommonStyles.Colors.primary : CommonStyles.Colors.gray}, CommonStyles.Styles.defaultSpacing]}>
-          <Image style={CommonStyles.Styles.squareSize64} source={require('@assets/images/category.png')}/>
-            <View style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
+          <View
+            style={[
+              {
+                flexDirection: 'row',
+                backgroundColor: categoriesHasValue()
+                  ? CommonStyles.Colors.primary
+                  : CommonStyles.Colors.gray,
+              },
+              CommonStyles.Styles.defaultSpacing,
+            ]}>
+            <Image
+              style={CommonStyles.Styles.squareSize64}
+              source={require('@assets/images/category.png')}
+            />
+            <View
+              style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
               <View style={CommonStyles.Styles.rowReverseCentered}>
-                <Text style={[CommonStyles.Styles.secondaryText, CommonStyles.Styles.expandSize, {marginBottom:5}]}>Categories</Text>
-                <CloseButton isVisible={categoriesHasValue()}
+                <Text
+                  style={[
+                    CommonStyles.Styles.secondaryText,
+                    CommonStyles.Styles.expandSize,
+                    {marginBottom: 5},
+                  ]}>
+                  Categories
+                </Text>
+                <CloseButton
+                  isVisible={categoriesHasValue()}
                   onPress={() => setSearch({...search, categories: []})}
                 />
               </View>
               <ListDisplay
-                title='Choose Categories'
-                onShowDialog={showDialogCategories} 
-                showList={categoriesHasValue()} 
+                title="Choose Categories"
+                onShowDialog={showDialogCategories}
+                showList={categoriesHasValue()}
                 data={search.categories}
-                onClearData={(m) => setSearch({...search, categories: search.categories.filter(sf=> sf !== m)})}
+                onClearData={m =>
+                  setSearch({
+                    ...search,
+                    categories: search.categories.filter(sf => sf !== m),
+                  })
+                }
               />
               <Portal>
-                <ListChooser isVisible={visibleCategories} onDismiss={hideDialogCategories} 
-                  data={categories} setData={setCategories} />
+                <ListChooser
+                  isVisible={visibleCategories}
+                  onDismiss={hideDialogCategories}
+                  data={categories}
+                  setData={setCategories}
+                />
               </Portal>
             </View>
           </View>
         </ScrollView>
       </View>
 
-      <View onTouchEndCapture={() => searchHasValue() && onSearchButtonPressCallback()} style={[{flexDirection: 'row', backgroundColor: searchHasValue() ? CommonStyles.Colors.secondary : CommonStyles.Colors.gray, marginTop: 10, padding: 10}, CommonStyles.Styles.centerContent]}>
-            <Image style={CommonStyles.Styles.squareSize64} source={require('@assets/images/search.png')}/>
-            <View style={{marginHorizontal: 10}}>
-                <Text style={CommonStyles.Styles.bottomButtonText}>SEARCH</Text>
-            </View>
+      <View
+        onTouchEndCapture={() =>
+          searchHasValue() && onSearchButtonPressCallback()
+        }
+        style={[
+          {
+            flexDirection: 'row',
+            backgroundColor: searchHasValue()
+              ? CommonStyles.Colors.secondary
+              : CommonStyles.Colors.gray,
+            marginTop: 10,
+            padding: 10,
+          },
+          CommonStyles.Styles.centerContent,
+        ]}>
+        <Image
+          style={CommonStyles.Styles.squareSize64}
+          source={require('@assets/images/search.png')}
+        />
+        <View style={{marginHorizontal: 10}}>
+          <Text style={CommonStyles.Styles.bottomButtonText}>SEARCH</Text>
         </View>
+      </View>
     </View>
-    
   );
 }
 
