@@ -5,7 +5,7 @@ import Title from '@components/title/Title';
 import CollectionUser from '@components/collection/CollectionUser';
 import CommonStyles from '@styles/common.style';
 
-function Setup({navigation}: any): JSX.Element {
+function SetupView({navigation}: any): JSX.Element {
   const flatListRef =
     useRef<FlatList<{name: string; isEditable: boolean}>>(null);
   const [data, setData] = useState([{name: 'BGG Ranking', isEditable: false}]);
@@ -96,4 +96,4 @@ function Setup({navigation}: any): JSX.Element {
   );
 }
 
-export default Setup;
+export default SetupView;

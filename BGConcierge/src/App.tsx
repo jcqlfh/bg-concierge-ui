@@ -4,8 +4,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as PaperProvider } from 'react-native-paper';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Setup from './screens/setup/Setup';
-import Search from './screens/search/Search';
+import SetupView from './screens/setup/view/SetupView';
+import SearchView from './screens/search/view/SearchView';
 import Header from '@components/header/Header';
 
 function App() {
@@ -38,10 +38,10 @@ function App() {
               <PaperProvider>
                 <NavigationContainer >
                   <Stack.Navigator>
-                    <Stack.Screen name="Setup" component={Setup} 
+                    <Stack.Screen name="Setup" component={SetupView} 
                       options={{ header: (props) => <Header />}}
                     />
-                    <Stack.Screen name="Search" component={Search} 
+                    <Stack.Screen name="Search" component={SearchView} 
                       options={{ header: (props) => <Header />}}
                     />
                   </Stack.Navigator>

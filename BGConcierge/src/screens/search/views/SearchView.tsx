@@ -10,16 +10,9 @@ import CommonStyles from '@styles/common.style';
 import ListChooser from '@components/listChooser/ListChooser';
 import CloseButton from '@components/closeButton/CloseButton';
 import ListDisplay from '@components/listDisplay/ListDisplay';
+import SearchModel from '../models/SearchModel';
 
-function Search({navigation}: any): JSX.Element {
-  interface SearchModel {
-    numPlayers: string;
-    duration: string;
-    difficulty: string;
-    mechanics: string[];
-    categories: string[];
-  }
-
+function SearchView({navigation}: any): JSX.Element {
   const [categories, setCategories] = useState([
     {name: 'Abstract Strategy', checked: false},
     {name: 'Action / Dexterity', checked: false},
@@ -625,4 +618,4 @@ function Search({navigation}: any): JSX.Element {
   );
 }
 
-export default Search;
+export default SearchView;
