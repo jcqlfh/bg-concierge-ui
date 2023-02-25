@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Portal, SegmentedButtons, Text} from 'react-native-paper';
-import {Image, ScrollView, View} from 'react-native';
+import {Image, ScrollView, TouchableHighlight, View} from 'react-native';
 import Title from '@shared/components/title/Title';
 import CommonStyles from '@shared/styles/common.style';
 import ListChooser from '@shared/components/listChooser/ListChooser';
@@ -587,29 +587,31 @@ function SearchView({navigation}: any): JSX.Element {
         </ScrollView>
       </View>
 
-      <View
-        onTouchEndCapture={() =>
-          searchHasValue() && onSearchButtonPressCallback()
-        }
-        style={[
-          {
-            flexDirection: 'row',
-            backgroundColor: searchHasValue()
-              ? CommonStyles.Colors.secondary
-              : CommonStyles.Colors.gray,
-            marginTop: 10,
-            padding: 10,
-          },
-          CommonStyles.Styles.centerContent,
-        ]}>
-        <Image
-          style={CommonStyles.Styles.squareSize64}
-          source={require('@assets/images/search.png')}
-        />
-        <View style={{marginHorizontal: 10}}>
-          <Text style={CommonStyles.Styles.bottomButtonText}>SEARCH</Text>
+      <TouchableHighlight activeOpacity={0.6}>
+        <View
+          onTouchEndCapture={() =>
+            searchHasValue() && onSearchButtonPressCallback()
+          }
+          style={[
+            {
+              flexDirection: 'row',
+              backgroundColor: searchHasValue()
+                ? CommonStyles.Colors.secondary
+                : CommonStyles.Colors.gray,
+              marginTop: 10,
+              padding: 10,
+            },
+            CommonStyles.Styles.centerContent,
+          ]}>
+          <Image
+            style={CommonStyles.Styles.squareSize64}
+            source={require('@assets/images/search.png')}
+          />
+          <View style={{marginHorizontal: 10}}>
+            <Text style={CommonStyles.Styles.bottomButtonText}>SEARCH</Text>
+          </View>
         </View>
-      </View>
+      </TouchableHighlight>
     </View>
   );
 }

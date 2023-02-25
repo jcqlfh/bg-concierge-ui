@@ -1,6 +1,6 @@
 import React, {useContext, useRef, useState} from 'react';
 import {Button, Text} from 'react-native-paper';
-import {FlatList, Image, View} from 'react-native';
+import {FlatList, Image, TouchableHighlight, View} from 'react-native';
 import Title from '@shared/components/title/Title';
 import CollectionUser from '@shared/components/collection/CollectionUser';
 import CommonStyles from '@shared/styles/common.style';
@@ -34,13 +34,15 @@ function SetupView({navigation}: any): JSX.Element {
   return (
     <View style={CommonStyles.Styles.expandSize}>
       <Title text={'Choose a Collection'} />
-      <Button
-        icon="plus"
-        style={{margin: 10}}
-        buttonColor={CommonStyles.Colors.secondary}
-        onPress={onAddCollectionButtonPressCallback}>
-        Add Collection
-      </Button>
+      <TouchableHighlight activeOpacity={0.6}>
+        <Button
+          icon="plus"
+          style={{margin: 10}}
+          buttonColor={CommonStyles.Colors.secondary}
+          onPress={onAddCollectionButtonPressCallback}>
+          Add Collection
+        </Button>
+      </TouchableHighlight>
       <View style={{flex: 1}}>
         <FlatList
           ref={flatListRef}
@@ -76,27 +78,28 @@ function SetupView({navigation}: any): JSX.Element {
           )}
         />
       </View>
-      <View></View>
-      <View
-        onTouchEndCapture={() => selectedItem && onSetupButtonPressCallback()}
-        style={[
-          {
-            flexDirection: 'row',
-            backgroundColor: selectedItem
-              ? CommonStyles.Colors.secondary
-              : CommonStyles.Colors.gray,
-            padding: 10,
-          },
-          CommonStyles.Styles.centerContent,
-        ]}>
-        <Image
-          style={CommonStyles.Styles.squareSize64}
-          source={require('@assets/images/collection.png')}
-        />
-        <View style={{marginHorizontal: 10}}>
-          <Text style={CommonStyles.Styles.bottomButtonText}>SET UP</Text>
+      <TouchableHighlight activeOpacity={0.6}>
+        <View
+          onTouchEndCapture={() => selectedItem && onSetupButtonPressCallback()}
+          style={[
+            {
+              flexDirection: 'row',
+              backgroundColor: selectedItem
+                ? CommonStyles.Colors.secondary
+                : CommonStyles.Colors.gray,
+              padding: 10,
+            },
+            CommonStyles.Styles.centerContent,
+          ]}>
+          <Image
+            style={CommonStyles.Styles.squareSize64}
+            source={require('@assets/images/collection.png')}
+          />
+          <View style={{marginHorizontal: 10}}>
+            <Text style={CommonStyles.Styles.bottomButtonText}>SET UP</Text>
+          </View>
         </View>
-      </View>
+      </TouchableHighlight>
     </View>
   );
 }
