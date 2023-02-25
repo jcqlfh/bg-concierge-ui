@@ -4,9 +4,7 @@
     "esModuleInterop": true,
     "paths": {
       "@assets/*": ["./assets/*"],
-      "@components/*": ["./src/shared/components/*"],
-      "@hooks/*": ["./src/shared/hooks/*"],
-      "@styles/*": ["./src/shared/styles/*"],
+      "@components/*": ["./src/shared/*"],
     }
   },
   "extends": "@tsconfig/react-native/tsconfig.json"

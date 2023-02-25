@@ -1,4 +1,4 @@
-import CommonStyles from '@styles/common.style';
+import CommonStyles from '@shared/styles/common.style';
 import React from 'react';
 import {IconButton} from 'react-native-paper';
 

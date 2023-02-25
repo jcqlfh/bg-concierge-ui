@@ -1,15 +1,11 @@
 import React, {useState} from 'react';
-import {
-  Portal,
-  SegmentedButtons,
-  Text,
-} from 'react-native-paper';
+import {Portal, SegmentedButtons, Text} from 'react-native-paper';
 import {Image, ScrollView, View} from 'react-native';
-import Title from '@components/title/Title';
-import CommonStyles from '@styles/common.style';
-import ListChooser from '@components/listChooser/ListChooser';
-import CloseButton from '@components/closeButton/CloseButton';
-import ListDisplay from '@components/listDisplay/ListDisplay';
+import Title from '@shared/components/title/Title';
+import CommonStyles from '@shared/styles/common.style';
+import ListChooser from '@shared/components/listChooser/ListChooser';
+import CloseButton from '@shared/components/closeButton/CloseButton';
+import ListDisplay from '@shared/components/listDisplay/ListDisplay';
 import SearchModel from '../models/SearchModel';
 
 function SearchView({navigation}: any): JSX.Element {
@@ -362,13 +358,13 @@ function SearchView({navigation}: any): JSX.Element {
                 buttons={[
                   {
                     value: 'small',
-                    label: 'Small',
+                    label: '1-2',
                   },
                   {
                     value: 'medium',
-                    label: 'Medium',
+                    label: '3-4',
                   },
-                  {value: 'large', label: 'Large'},
+                  {value: 'large', label: '5+'},
                 ]}
               />
             </View>
@@ -398,7 +394,7 @@ function SearchView({navigation}: any): JSX.Element {
                     CommonStyles.Styles.expandSize,
                     {marginBottom: 5},
                   ]}>
-                  Duration
+                  Duration (up to)
                 </Text>
                 <CloseButton
                   isVisible={durationHasValue()}
@@ -411,15 +407,15 @@ function SearchView({navigation}: any): JSX.Element {
                 buttons={[
                   {
                     value: 'short',
-                    label: 'Short',
+                    label: '30min',
                   },
                   {
                     value: 'medium',
-                    label: 'Medium',
+                    label: '60min',
                   },
                   {
                     value: 'long',
-                    label: 'Long',
+                    label: '120min',
                   },
                 ]}
               />
@@ -516,7 +512,7 @@ function SearchView({navigation}: any): JSX.Element {
                 title="Choose Mechanics"
                 onShowDialog={showDialogMechanics}
                 showList={mechanicsHasValue()}
-                data={search.categories}
+                data={search.mechanics}
                 onClearData={m =>
                   setSearch({
                     ...search,

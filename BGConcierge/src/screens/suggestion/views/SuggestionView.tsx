@@ -1,10 +1,9 @@
 import React, {useContext, useRef, useState} from 'react';
-import {Button, Text} from 'react-native-paper';
 import {FlatList, Image, View} from 'react-native';
-import Title from '@components/title/Title';
-import CollectionItem from '@components/collection/CollectionItem';
-import CommonStyles from '@styles/common.style';
-import { SuggestionContext } from '../../../shared/context/SuggestionContext';
+import Title from '@shared/components/title/Title';
+import CollectionItem from '@shared/components/collection/CollectionItem';
+import CommonStyles from '@shared/styles/common.style';
+import {SuggestionContext} from '@shared/context/SuggestionContext';
 
 function SuggestionView(): JSX.Element {
   const [data, setData] = useState([{name: 'BGG Ranking', isEditable: false}]);

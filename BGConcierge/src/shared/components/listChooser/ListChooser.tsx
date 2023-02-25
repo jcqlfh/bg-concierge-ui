@@ -1,4 +1,4 @@
-import CommonStyles from '@styles/common.style';
+import CommonStyles from '@shared/styles/common.style';
 import React from 'react';
 import {Button, Checkbox, Dialog, Text} from 'react-native-paper';
 import {ScrollView, StyleSheet} from 'react-native';

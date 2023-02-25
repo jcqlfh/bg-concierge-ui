@@ -1,8 +1,8 @@
-import {createContext, useState} from 'react';
+import {createContext} from 'react';
 
 export type SuggestionContextValueType = {
-    collection: string;
-}
+  collection: string;
+};
 export type SuggestionContextType = {
   value: SuggestionContextValueType;
   setValue: (value: SuggestionContextValueType) => void;

@@ -7,9 +7,7 @@ module.exports = {
         "root": ["./src/"],
         "alias": {
           "@assets": "./assets/",
-          "@components": "./src/shared/components/",
-          "@hooks": "./src/shared/hooks/",
-          "@styles": "./src/shared/styles/",
+          "@shared": "./src/shared/",
         }
       }
     ]

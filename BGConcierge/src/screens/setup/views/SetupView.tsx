@@ -1,10 +1,10 @@
 import React, {useContext, useRef, useState} from 'react';
 import {Button, Text} from 'react-native-paper';
 import {FlatList, Image, View} from 'react-native';
-import Title from '@components/title/Title';
-import CollectionUser from '@components/collection/CollectionUser';
-import CommonStyles from '@styles/common.style';
-import { SuggestionContext } from '../../../shared/context/SuggestionContext';
+import Title from '@shared/components/title/Title';
+import CollectionUser from '@shared/components/collection/CollectionUser';
+import CommonStyles from '@shared/styles/common.style';
+import {SuggestionContext} from '@shared/context/SuggestionContext';
 
 function SetupView({navigation}: any): JSX.Element {
   const flatListRef =
@@ -26,7 +26,7 @@ function SetupView({navigation}: any): JSX.Element {
 
   const onSetupButtonPressCallback = () => {
     context.setValue({
-      collection: selectedItem
+      collection: selectedItem,
     });
     navigation.navigate('Search');
   };
@@ -78,7 +78,7 @@ function SetupView({navigation}: any): JSX.Element {
       </View>
       <View></View>
       <View
-        onTouchEndCapture={onSetupButtonPressCallback}
+        onTouchEndCapture={() => selectedItem && onSetupButtonPressCallback()}
         style={[
           {
             flexDirection: 'row',

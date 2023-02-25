@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, TextInput} from 'react-native-paper';
 import {Image, View} from 'react-native';
-import {useSwipe} from '@hooks/useSwipe';
-import CommonStyles from '@styles/common.style';
+import {useSwipe} from '@shared/hooks/useSwipe';
+import CommonStyles from '@shared/styles/common.style';
 
 function CollectionUser(props: {
   name: string;
