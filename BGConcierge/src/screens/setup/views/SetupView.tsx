@@ -1,9 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {Button, Text} from 'react-native-paper';
 import {FlatList, Image, View} from 'react-native';
 import Title from '@components/title/Title';
 import CollectionUser from '@components/collection/CollectionUser';
 import CommonStyles from '@styles/common.style';
+import { SuggestionContext } from '../../../shared/context/SuggestionContext';
 
 function SetupView({navigation}: any): JSX.Element {
   const flatListRef =
@@ -11,6 +12,7 @@ function SetupView({navigation}: any): JSX.Element {
   const [data, setData] = useState([{name: 'BGG Ranking', isEditable: false}]);
   const [rerender, setRerender] = useState(new Date());
   const [selectedItem, setSelectedItem] = useState('');
+  const context = useContext(SuggestionContext);
 
   const onAddCollectionButtonPressCallback = () => {
     if (data.find(i => i.name === '')) {
@@ -23,6 +25,9 @@ function SetupView({navigation}: any): JSX.Element {
   };
 
   const onSetupButtonPressCallback = () => {
+    context.setValue({
+      collection: selectedItem
+    });
     navigation.navigate('Search');
   };
 

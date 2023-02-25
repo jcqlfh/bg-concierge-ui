@@ -4,7 +4,7 @@ import {FlatList, Image, View} from 'react-native';
 import Title from '@components/title/Title';
 import CollectionItem from '@components/collection/CollectionItem';
 import CommonStyles from '@styles/common.style';
-import SuggestionContext from '../../../shared/context/SuggestionContext';
+import { SuggestionContext } from '../../../shared/context/SuggestionContext';
 
 function SuggestionView(): JSX.Element {
   const [data, setData] = useState([{name: 'BGG Ranking', isEditable: false}]);

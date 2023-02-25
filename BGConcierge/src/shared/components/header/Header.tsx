@@ -2,7 +2,7 @@ import CommonStyles from '@styles/common.style';
 import React, { useContext } from 'react';
 import {Appbar, Divider, Text} from 'react-native-paper';
 import {Image, StyleSheet, View} from 'react-native';
-import SuggestionContext from '../../context/SuggestionContext';
+import { SuggestionContext } from '../../context/SuggestionContext';
 
 function Header(props: {onPress: () => void}): JSX.Element {
   const contentStyle = StyleSheet.compose(
@@ -34,7 +34,7 @@ function Header(props: {onPress: () => void}): JSX.Element {
             source={require('@assets/images/collection.png')}/>
           <Text>Collection</Text>
         </View>
-        <Text style={{position: 'absolute', height: '100%', width: '100%', textAlign: 'center', textAlignVertical: 'center'}}>jcqlfh</Text>
+        <Text style={{position: 'absolute', height: '100%', width: '100%', textAlign: 'center', textAlignVertical: 'center'}}>{context.value.collection}</Text>
       </View>
       <Divider/>
     </View>

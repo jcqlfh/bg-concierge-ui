@@ -1,5 +1,13 @@
-import { createContext } from "react";
+import {createContext, useState} from 'react';
 
-const ThemeContext = createContext({});
+export type SuggestionContextValueType = {
+    collection: string;
+}
+export type SuggestionContextType = {
+  value: SuggestionContextValueType;
+  setValue: (value: SuggestionContextValueType) => void;
+};
 
-export default ThemeContext
+export const SuggestionContext = createContext<SuggestionContextType>(
+  {} as SuggestionContextType,
+);

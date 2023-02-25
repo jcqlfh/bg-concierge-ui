@@ -8,11 +8,12 @@ import Header from '@components/header/Header';
 import SetupView from './screens/setup/views/SetupView';
 import SearchView from './screens/search/views/SearchView';
 import SuggestionView from './screens/suggestion/views/SuggestionView';
-import SuggestionContext from './shared/context/SuggestionContext';
+import { SuggestionContext, SuggestionContextValueType, }from './shared/context/SuggestionContext';
 
 function App() {
   const Stack = createNativeStackNavigator();
   const [height, setHeight] = useState(Dimensions.get('window').height);
+  const [value, setValue] = useState({} as SuggestionContextValueType);
 
   useEffect(() => {
       const keyboardShown = Keyboard.addListener('keyboardDidShow', (e) => {
@@ -37,7 +38,7 @@ function App() {
       <SafeAreaView style={{height: height}}>
           <SafeAreaProvider>
               <PaperProvider>
-                <SuggestionContext.Provider value={{}}>
+                <SuggestionContext.Provider value={{value, setValue}}>
                   <NavigationContainer >
                     <Stack.Navigator>
                       <Stack.Screen name="Setup" component={SetupView} 
