@@ -2,11 +2,11 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/BellotaText.ttf",
+      "path": "assets/fonts/BellotaText-Regular.ttf",
       "sha1": "728197edb10ca7e8036835a4bd0d6c94478d5dc5"
     },
     {
-      "path": "assets/fonts/BigelowRules.ttf",
+      "path": "assets/fonts/BigelowRules-Regular.ttf",
       "sha1": "46d4835720f44d4e80c647f553a513a05ee541af"
     }
   ]

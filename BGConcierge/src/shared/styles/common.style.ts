@@ -21,11 +21,11 @@ const CommonStyles = {
     },
     secondaryText: {
       textAlign: 'center',
-      fontFamily: 'BellotaText',
+      fontFamily: 'BellotaText-Regular',
     },
     bottomButtonText: {
       textAlign: 'center',
-      fontFamily: 'BellotaText',
+      fontFamily: 'BellotaText-Regular',
       fontSize: 32,
     },
     absoluteOffset15: {
@@ -47,7 +47,7 @@ const CommonStyles = {
       alignItems: 'center',
     },
     mainText: {
-      fontFamily: 'BigelowRules',
+      fontFamily: 'BigelowRules-Regular',
       textAlign: 'center',
     },
   }),

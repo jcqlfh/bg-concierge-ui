@@ -11,7 +11,7 @@ function Title(props: {text: string}): JSX.Element {
         style={{
           height: 30,
           marginTop: 50,
-          fontFamily: 'BellotaText',
+          fontFamily: 'BellotaText-Regular',
           fontSize: 22,
           textAlign: 'center',
         }}>

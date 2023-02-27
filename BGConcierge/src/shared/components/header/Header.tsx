@@ -15,6 +15,7 @@ function Header(props: {onPress: () => void}): JSX.Element {
         width: '100%',
         textAlign: 'center',
         textAlignVertical: 'center',
+        padding: 10
       },
     }).title,
     CommonStyles.Styles.mainText,
@@ -64,6 +65,7 @@ function Header(props: {onPress: () => void}): JSX.Element {
               width: '100%',
               textAlign: 'center',
               textAlignVertical: 'center',
+              padding: 20,
               fontSize: 20,
             }}>
             {context.value.collection || 'NOT DEFINED'}

@@ -14,8 +14,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-BGConcierge-BGConciergeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-BGConcierge-BGConciergeTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8CB1407FAE2D4FA1B10B544E /* BellotaText.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18B52457D77F439E9F979782 /* BellotaText.ttf */; };
-		A8224012283543B3BFE5D229 /* BigelowRules.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95585F449A44E2A83A81E03 /* BigelowRules.ttf */; };
+		850B60A829ABAEE000024C9B /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 850B60A729ABAEE000024C9B /* fonts */; };
+		850B60A929ABB83E00024C9B /* BellotaText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18B52457D77F439E9F979782 /* BellotaText-Regular.ttf */; };
+		850B60AA29ABB84400024C9B /* BigelowRules-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F95585F449A44E2A83A81E03 /* BigelowRules-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,16 +39,17 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BGConcierge/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BGConcierge/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BGConcierge/main.m; sourceTree = "<group>"; };
+		18B52457D77F439E9F979782 /* BellotaText-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BellotaText-Regular.ttf"; path = "../assets/fonts/BellotaText-Regular.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-BGConcierge-BGConciergeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BGConcierge-BGConciergeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-BGConcierge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge.debug.xcconfig"; path = "Target Support Files/Pods-BGConcierge/Pods-BGConcierge.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-BGConcierge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge.release.xcconfig"; path = "Target Support Files/Pods-BGConcierge/Pods-BGConcierge.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-BGConcierge-BGConciergeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge-BGConciergeTests.debug.xcconfig"; path = "Target Support Files/Pods-BGConcierge-BGConciergeTests/Pods-BGConcierge-BGConciergeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-BGConcierge.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BGConcierge.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BGConcierge/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		850B60A729ABAEE000024C9B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-BGConcierge-BGConciergeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge-BGConciergeTests.release.xcconfig"; path = "Target Support Files/Pods-BGConcierge-BGConciergeTests/Pods-BGConcierge-BGConciergeTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		18B52457D77F439E9F979782 /* BellotaText.ttf */ = {isa = PBXFileReference; name = "BellotaText.ttf"; path = "../assets/fonts/BellotaText.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F95585F449A44E2A83A81E03 /* BigelowRules.ttf */ = {isa = PBXFileReference; name = "BigelowRules.ttf"; path = "../assets/fonts/BigelowRules.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F95585F449A44E2A83A81E03 /* BigelowRules-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BigelowRules-Regular.ttf; path = ../assets/fonts/BigelowRules-Regular.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		13B07FAE1A68108700A75B9A /* BGConcierge */ = {
 			isa = PBXGroup;
 			children = (
+				850B60A729ABAEE000024C9B /* fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -108,6 +111,15 @@
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-BGConcierge-BGConciergeTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		619ACB88DB524807BFA09B8B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				18B52457D77F439E9F979782 /* BellotaText-Regular.ttf */,
+				F95585F449A44E2A83A81E03 /* BigelowRules-Regular.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -152,16 +164,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		619ACB88DB524807BFA09B8B /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				18B52457D77F439E9F979782 /* BellotaText.ttf */,
-				F95585F449A44E2A83A81E03 /* BigelowRules.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -257,10 +259,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				850B60AA29ABB84400024C9B /* BigelowRules-Regular.ttf in Resources */,
+				850B60A929ABB83E00024C9B /* BellotaText-Regular.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				850B60A829ABAEE000024C9B /* fonts in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				8CB1407FAE2D4FA1B10B544E /* BellotaText.ttf in Resources */,
-				A8224012283543B3BFE5D229 /* BigelowRules.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
