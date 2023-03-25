@@ -5,6 +5,7 @@ import Title from '@shared/components/title/Title';
 import CollectionUser from '@shared/components/collection/CollectionUser';
 import CommonStyles from '@shared/styles/common.style';
 import {SuggestionContext} from '@shared/context/SuggestionContext';
+import Loading from '@shared/components/loading/Loading';
 
 function SetupView({navigation}: any): JSX.Element {
   const flatListRef =
@@ -12,6 +13,8 @@ function SetupView({navigation}: any): JSX.Element {
   const [data, setData] = useState([{name: 'BGG Ranking', isEditable: false}]);
   const [rerender, setRerender] = useState(new Date());
   const [selectedItem, setSelectedItem] = useState('');
+  const [isLoading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('');
   const context = useContext(SuggestionContext);
 
   const onAddCollectionButtonPressCallback = () => {
@@ -25,12 +28,24 @@ function SetupView({navigation}: any): JSX.Element {
   };
 
   const onSetupButtonPressCallback = () => {
+    setLoading(true);
     context.setValue({
+      ...context.value,
       collection: selectedItem,
     });
-    navigation.navigate('Search');
+    setTimeout(() => {
+      navigation.navigate('Search');
+      setTimeout(() => {
+        setLoading(false)}, 1000);
+    }, 2000);
+    
   };
 
+  if(isLoading)
+  return (
+    <Loading text={loadingText} />
+  )
+  else
   return (
     <View style={CommonStyles.Styles.expandSize}>
       <Title text={'Choose a Collection'} />

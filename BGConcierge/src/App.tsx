@@ -12,10 +12,12 @@ import {
   SuggestionContext,
   SuggestionContextValueType,
 } from '@shared/context/SuggestionContext';
+import Splash from '@shared/components/splash/Splash';
 
 function App() {
   const Stack = createNativeStackNavigator();
   const [height, setHeight] = useState(Dimensions.get('window').height);
+  const [splashOn, setSplashOn] = useState(true)
   const [value, setValue] = useState({} as SuggestionContextValueType);
 
   useEffect(() => {
@@ -35,7 +37,17 @@ function App() {
       dimensionChanged.remove();
     };
   });
-
+  
+  if (splashOn) {
+    return (
+      <SafeAreaView style={{height: height}}>
+        <SafeAreaProvider>
+          <Splash setSplashOn={setSplashOn}/>
+        </SafeAreaProvider>
+      </SafeAreaView>
+    );
+  }
+  else
   return (
     <SafeAreaView style={{height: height}}>
       <SafeAreaProvider>
@@ -46,10 +58,10 @@ function App() {
                 <Stack.Screen
                   name="Setup"
                   component={SetupView}
-                  options={({navigation}) => ({
+                  options={({navigation}) => ({ 
                     header: () => (
                       <Header onPress={() => navigation.navigate('Setup')} />
-                    ),
+                    ), 
                   })}
                 />
                 <Stack.Screen
