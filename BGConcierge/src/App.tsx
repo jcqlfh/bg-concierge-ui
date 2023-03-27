@@ -38,14 +38,10 @@ function App() {
     };
   });
   
+  setTimeout(() => setSplashOn(false) , 2000);
+
   if (splashOn) {
-    return (
-      <SafeAreaView style={{height: height}}>
-        <SafeAreaProvider>
-          <Splash setSplashOn={setSplashOn}/>
-        </SafeAreaProvider>
-      </SafeAreaView>
-    );
+    return (<Splash/>);
   }
   else
   return (

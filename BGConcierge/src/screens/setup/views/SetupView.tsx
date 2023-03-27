@@ -14,7 +14,7 @@ function SetupView({navigation}: any): JSX.Element {
   const [rerender, setRerender] = useState(new Date());
   const [selectedItem, setSelectedItem] = useState('');
   const [isLoading, setLoading] = useState(false);
-  const [loadingText, setLoadingText] = useState('');
+  const [loadingText, setLoadingText] = useState('Loading...');
   const context = useContext(SuggestionContext);
 
   const onAddCollectionButtonPressCallback = () => {
