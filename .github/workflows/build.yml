@@ -21,6 +21,8 @@ jobs:
         run: |
           cd BGConcierge && npm install
       - name: Build Android Release
+        env:
+          RELEASEPASSWORD: ${{ env.RELEASEPASSWORD }}
         run: |
           cd BGConcierge/android && ./gradlew assembleRelease
       - name: Upload Artifact
