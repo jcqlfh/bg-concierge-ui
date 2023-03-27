@@ -21,7 +21,7 @@ jobs:
           cd BGConcierge && npm install
       - name: Build Android Release
         run: |
-          cd android && ./gradlew assembleRelease
+          cd BGConcierge/android && ./gradlew assembleRelease
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
