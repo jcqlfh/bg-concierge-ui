@@ -13,7 +13,7 @@ import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app'
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
 import { QueryFilterConstraint, and, collection, getDocs, initializeFirestore, limit, query, where } from '@firebase/firestore'
 import { Boardgame } from '@shared/context/Boardgame';
-import { FIREBASE_CONFIG, FIREBASE_USER, FIREBASE_PASS } from 'react-native-dotenv'
+import { FIREBASE_CONFIG, FIREBASE_USER, FIREBASE_PASS } from '@env'
 
 function SearchView({navigation}: any): JSX.Element {
   const context = useContext(SuggestionContext);
