@@ -4,7 +4,7 @@ import SearchModel from '../../screens/search/models/SearchModel';
 export type SuggestionContextValueType = {
   collection: string;
   search: SearchModel
-  suggestions: []
+  suggestions: [],
 };
 export type SuggestionContextType = {
   value: SuggestionContextValueType;
