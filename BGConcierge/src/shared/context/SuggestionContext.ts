@@ -1,10 +1,12 @@
 import {createContext} from 'react';
 import SearchModel from '../../screens/search/models/SearchModel';
+import { Boardgame } from './Boardgame';
 
 export type SuggestionContextValueType = {
   collection: string;
+  colectionItems: number[]
   search: SearchModel
-  suggestions: [],
+  suggestions: Boardgame[],
 };
 export type SuggestionContextType = {
   value: SuggestionContextValueType;

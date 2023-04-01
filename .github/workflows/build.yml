@@ -20,6 +20,13 @@ jobs:
       - name: Install npm dependencies
         run: |
           cd BGConcierge && npm install
+      - name: create .env file
+        env:
+          FIREBASE_CONFIG: ${{ vars.FIREBASE_CONFIG }}
+          FIREBASE_USER: ${{ vars.FIREBASE_USER }}
+          FIREBASE_PASS: ${{ vars.FIREBASE_PASS }}
+        run: |
+          cd BGConcierge && echo FIREBASE_CONFIG=$FIREBASE_CONFIG >> .env && echo FIREBASE_USER=$FIREBASE_USER >> .env && echo FIREBASE_PASS=$FIREBASE_PASS >> .env
       - name: Build Android Release
         env:
           RELEASEPASSWORD: ${{ vars.RELEASEPASSWORD }}

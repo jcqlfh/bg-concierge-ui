@@ -30,46 +30,51 @@ function SetupView({navigation}: any): JSX.Element {
   };
 
   const onSetupButtonPressCallback = async () => {
-    setLoading(true);
-
-    var status = 202;
-    var response = null;
-
-    while (status === 202) {
-      response = await fetch('https://boardgamegeek.com/xmlapi2/collection?username='+selectedItem);
-      status = response.status
-      await new Promise<void>((resolve) => setTimeout(resolve, 1000));
-    }
-
-    if(status !== 200) {
-      setLoading(false);
-      setSnackOn(true);
-      setSnackText('Error while getting the collection. Please try again another time.')
-      return;
-    } 
-
-    var responseText = await response?.text();
-
-    let errorMatch = responseText?.match(/(?<=<message>).*(?=<\/message>)/gm);
     
-    if(errorMatch) {
-      setLoading(false);
-      setSnackOn(true);
-      setSnackText(errorMatch.join(':'));
-      return;
-    }
-    
-    let goodMatch = responseText?.match(/(?<=objectid=")[0-9]+(?=")/gm)
-    console.log(goodMatch?.map(p => parseInt(p)));
+    let collectionItems: number[] = [];
 
+    if(selectedItem !== 'BGG Ranking') {
+      setLoading(true);
+
+      var status = 202;
+      var response = null;
+
+      while (status === 202) {
+        response = await fetch('https://boardgamegeek.com/xmlapi2/collection?username='+selectedItem);
+        status = response.status
+        await new Promise<void>((resolve) => setTimeout(resolve, 1000));
+      }
+
+      if(status !== 200) {
+        setLoading(false);
+        setSnackOn(true);
+        setSnackText('Network error while getting the collection. Please try again another time.')
+        return;
+      } 
+
+      var responseText = await response?.text();
+
+      let errorMatch = responseText?.match(/(?<=<message>).*(?=<\/message>)/gm);
+      
+      if(errorMatch) {
+        setLoading(false);
+        setSnackOn(true);
+        setSnackText(errorMatch.join(':'));
+        return;
+      }
+      
+      let goodMatch = responseText?.match(/(?<=objectid=")[0-9]+(?=")/gm)
+      collectionItems = goodMatch?.map(p => parseInt(p)) ?? collectionItems;
+    }
     context.setValue({
       ...context.value,
       collection: selectedItem,
+      colectionItems: collectionItems,
     });
     
-      navigation.navigate('Search');
-      setTimeout(() => {
-        setLoading(false)}, 1000);
+    navigation.navigate('Search');
+    setTimeout(() => {
+      setLoading(false)}, 1000);
   };
 
   if(isLoading)

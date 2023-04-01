@@ -3,19 +3,11 @@ import {Text} from 'react-native-paper';
 import {Image, TouchableHighlight, View} from 'react-native';
 import {useSwipe} from '@shared/hooks/useSwipe';
 import CommonStyles from '@shared/styles/common.style';
+import { Boardgame } from '@shared/context/Boardgame';
+const exampleImage = require('@assets/images/collection.png');
 
 function CollectionItem(props: {
-  data: {
-    name: string,
-    img: string,
-    text: string,
-    minplayers: number,
-    maxplayers: number,
-    minplaytime: number,
-    maxplaytime: number,
-    boardgamecategory: string[],
-    boardgamemechanic: string[]
-  };
+  data: Boardgame;
   onChange: (newItem: string) => void;
   isSelected: boolean;
   onSelected: (selected: string) => void;
@@ -32,7 +24,7 @@ function CollectionItem(props: {
       <View
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        onTouchEndCapture={() => props.onSelected(props.data.name)}
+        onTouchEndCapture={() => props.onSelected(props.data.Name)}
         style={[
           {
             flexDirection: 'row',
@@ -43,25 +35,25 @@ function CollectionItem(props: {
           CommonStyles.Styles.defaultSpacing,
         ]}>
         <View style={[CommonStyles.Styles.expandSize, {marginHorizontal: 10}]}>
-          <Text style={CommonStyles.Styles.secondaryText}>{props.data.name}</Text>
+          <Text style={CommonStyles.Styles.secondaryText}>{props.data.Name}</Text>
           <View style={{flexDirection: 'row'}}>
             <View>
             <Image
               style={[CommonStyles.Styles.squareSize64, {marginTop: 5, marginRight: 5}]}
-              source={{uri: props.data.img}}
+              source={{uri: props.data.Thumbnail ?? Image.resolveAssetSource(exampleImage).uri}}
             />
-              <View style={{flexDirection: 'row', marginTop: 5}}>
-                <Image style={{height: 16, width: 16, marginRight:5 }} source={require('@assets/images/num_players.png')} />
-                <Text style={{marginRight: 10}}>{props.data.minplayers + '-' + props.data.maxplayers}</Text>
+              <View style={{flexDirection: 'column', marginTop: 5, alignItems: 'center'}}>
+                <Image style={{height: 20, width: 20 }} source={require('@assets/images/num_players.png')} />
+                <Text style={{flex: 1}}>{props.data.MinPlayers + '-' + props.data.MaxPlayers}</Text>
              </View>
-             <View style={{flexDirection: 'row', marginTop: 5}}>
-                <Image style={{height: 16, width: 16, marginRight: 5 }} source={require('@assets/images/duration.png')} />
-                <Text>{props.data.minplaytime + '-' + props.data.maxplaytime}</Text>
+             <View style={{flexDirection: 'column', marginTop: 5, alignItems: 'center'}}>
+                <Image style={{height: 20, width: 20}} source={require('@assets/images/duration.png')} />
+                <Text style={{flex: 1}}>{props.data.MinPlayTime + '-' + props.data.PlayingTime}</Text>
               </View>
             </View>
             <View style={{flex: 1}}>
               <Text style={{textAlign: 'justify'}} numberOfLines={10}>
-                {props.data.text}
+                {props.data.Description}
               </Text>
             </View>
           </View>

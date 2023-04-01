@@ -9,6 +9,11 @@ import ListDisplay from '@shared/components/listDisplay/ListDisplay';
 import SearchModel from '../models/SearchModel';
 import Loading from '@shared/components/loading/Loading';
 import { SuggestionContext } from '@shared/context/SuggestionContext';
+import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app'
+import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
+import { QueryFilterConstraint, and, collection, getDocs, initializeFirestore, limit, query, where } from '@firebase/firestore'
+import { Boardgame } from '@shared/context/Boardgame';
+import { FIREBASE_CONFIG, FIREBASE_USER, FIREBASE_PASS } from 'react-native-dotenv'
 
 function SearchView({navigation}: any): JSX.Element {
   const context = useContext(SuggestionContext);
@@ -289,6 +294,7 @@ function SearchView({navigation}: any): JSX.Element {
     setVisibleMechanics(true);
   };
   const hideDialogMechanics = () => {
+    search.categories = [];
     search.mechanics = mechanics.filter(m => m.checked).map(m => m.name);
     setVisibleMechanics(false);
   };
@@ -299,16 +305,114 @@ function SearchView({navigation}: any): JSX.Element {
     setVisibleCategories(true);
   };
   const hideDialogCategories = () => {
+    search.mechanics = [];
     search.categories = categories.filter(m => m.checked).map(m => m.name);
     setVisibleCategories(false);
   };
 
-  const onSearchButtonPressCallback = () => {
+  const onSearchButtonPressCallback = async () => {
+    setLoading(true)
+
+    let app: FirebaseApp;
+
+    if (getApps().length === 0) {
+      app = initializeApp(JSON.parse(FIREBASE_CONFIG));
+    } else {
+      app = getApp();
+    }
+
+    const auth = getAuth();
+    const boardgames = await signInWithEmailAndPassword(auth, FIREBASE_USER, FIREBASE_PASS)
+      .then(async () =>{
+          var boardgames: Boardgame[] = []
+
+          const db = initializeFirestore(app, {
+            experimentalForceLongPolling: true,
+          });
+
+          var conditions: QueryFilterConstraint[] = [];
+
+          if(search.numPlayers)
+            switch(search.numPlayers)
+            {
+              case 'small':
+                conditions.push(where('MaxPlayers', '>=', 1), where('MaxPlayers', '<=', 2))
+                break
+              case 'medium':
+                conditions.push(where('MaxPlayers', '>=', 3), where('MaxPlayers', '<=', 4))
+                break
+              case 'large':
+                conditions.push(where('MaxPlayers', '>=', 5))
+                break
+              }
+
+          if(search.duration)
+            switch(search.duration)
+            {
+              case 'short':
+                conditions.push(where('PlayingTime', '<=', 30))
+                break
+              case 'medium':
+                conditions.push(where('PlayingTime', '<=', 60))
+                break
+              case 'long':
+                conditions.push(where('PlayingTime', '<=', 120))
+                break
+            }
+
+          if(search.difficulty)
+            switch(search.difficulty)
+            {
+              case 'easy':
+                conditions.push(where('Statistics.AverageWeight', '>=', 0), where('Statistics.AverageWeight', '<=', 2))
+                break
+              case 'medium':
+                conditions.push(where('Statistics.AverageWeight', '>=', 2), where('Statistics.AverageWeight', '<=', 3))
+                break
+              case 'hard':
+                conditions.push(where('Statistics.AverageWeight', '>=', 4))
+                break
+            }
+          
+          if(search.categories?.length > 0)
+            conditions.push(where('Categories', 'array-contains-any', search.categories));
+        
+          if(search.mechanics?.length > 0)
+            conditions.push(where('Mechanics', 'array-contains-any', search.mechanics));
+          
+          if(context.value.colectionItems.length > 0) {
+            const collectionId = [...context.value.colectionItems];
+
+            while(collectionId.length > 0) {
+
+              const finalConditions = [where('Id', 'in', collectionId.splice(0, collectionId.length > 10 ? 10 : collectionId.length)), ...conditions];
+
+              const suggestionsQuery = query(collection(db, 'boardgames'), and(...finalConditions), limit(10))
+
+              const docs = await getDocs(suggestionsQuery);
+              if(!docs.size)
+                return []
+
+              docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
+            }
+          } else {
+            const suggestionsQuery = query(collection(db, 'boardgames'), and(...conditions), limit(10))
+
+            const docs = await getDocs(suggestionsQuery);
+            if(!docs.size)
+              return []
+
+            docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
+          }
+          return boardgames;
+      })
+      .catch(reason => console.log(reason));
+
     context.setValue({
       ...context.value,
-      search: search
+      search: search,
+      suggestions: boardgames as Boardgame[]
     })
-    setLoading(true)
     setTimeout(() => {
       navigation.navigate('Suggestion');
       setTimeout(() => {
@@ -372,7 +476,7 @@ function SearchView({navigation}: any): JSX.Element {
                 <SegmentedButtons
                   value={search.numPlayers}
                   onValueChange={value =>
-                    setSearch({...search, numPlayers: value})
+                    setSearch({...search, duration: '', difficulty: '', numPlayers: value})
                   }
                   buttons={[
                     {
@@ -422,7 +526,7 @@ function SearchView({navigation}: any): JSX.Element {
                 </View>
                 <SegmentedButtons
                   value={search.duration}
-                  onValueChange={value => setSearch({...search, duration: value})}
+                  onValueChange={value => setSearch({...search, numPlayers: '', difficulty: '', duration: value})}
                   buttons={[
                     {
                       value: 'short',
@@ -476,7 +580,7 @@ function SearchView({navigation}: any): JSX.Element {
                 <SegmentedButtons
                   value={search.difficulty}
                   onValueChange={value =>
-                    setSearch({...search, difficulty: value})
+                    setSearch({...search, numPlayers: '', duration: '', difficulty: value})
                   }
                   buttons={[
                     {
