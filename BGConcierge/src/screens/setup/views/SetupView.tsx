@@ -154,7 +154,6 @@ function SetupView({navigation}: any): JSX.Element {
       <Snackbar
         visible={snackOn}
         onDismiss={() => setSnackOn(false)}
-        style={{backgroundColor:'red'}}
       >
         {snackText}
       </Snackbar>

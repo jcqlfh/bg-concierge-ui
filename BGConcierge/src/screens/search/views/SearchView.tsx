@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Portal, SegmentedButtons, Text} from 'react-native-paper';
+import {Portal, SegmentedButtons, Snackbar, Text} from 'react-native-paper';
 import {Image, ScrollView, TouchableHighlight, View} from 'react-native';
 import Title from '@shared/components/title/Title';
 import CommonStyles from '@shared/styles/common.style';
@@ -11,7 +11,7 @@ import Loading from '@shared/components/loading/Loading';
 import { SuggestionContext } from '@shared/context/SuggestionContext';
 import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app'
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
-import { QueryFilterConstraint, and, collection, getDocs, initializeFirestore, limit, query, where } from '@firebase/firestore'
+import { QueryFilterConstraint, and, collection, getDocs, initializeFirestore, limit, orderBy, query, where } from '@firebase/firestore'
 import { Boardgame } from '@shared/context/Boardgame';
 import { FIREBASE_CONFIG, FIREBASE_USER, FIREBASE_PASS } from '@env'
 
@@ -285,7 +285,8 @@ function SearchView({navigation}: any): JSX.Element {
   const [visibleCategories, setVisibleCategories] = React.useState(false);
   const [isLoading, setLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Loading...');
-
+  const [snackOn, setSnackOn] = useState(false)
+  const [snackText, setSnackText] = useState('')
 
   const showDialogMechanics = () => {
     mechanics.forEach(
@@ -314,7 +315,6 @@ function SearchView({navigation}: any): JSX.Element {
     setLoading(true)
 
     let app: FirebaseApp;
-
     if (getApps().length === 0) {
       app = initializeApp(JSON.parse(FIREBASE_CONFIG));
     } else {
@@ -406,18 +406,29 @@ function SearchView({navigation}: any): JSX.Element {
           }
           return boardgames;
       })
-      .catch(reason => console.log(reason));
+      .catch(reason => {
+          console.log(reason)
+          setLoading(false);
+          setSnackOn(true);
+          setSnackText('Error while searching the boargames in database');
+      });
+
+    if(!boardgames?.length) {
+      setLoading(false);
+      setSnackOn(true);
+      setSnackText('No boardgame found for this parameters setting.');
+      return;
+    }
 
     context.setValue({
       ...context.value,
       search: search,
       suggestions: boardgames as Boardgame[]
     })
+
+    navigation.navigate('Suggestion');
     setTimeout(() => {
-      navigation.navigate('Suggestion');
-      setTimeout(() => {
-        setLoading(false)}, 1000);
-    }, 2000);
+      setLoading(false)}, 1000);
   };
 
   const numPlayerHasValue = () => !!search.numPlayers;
@@ -735,6 +746,12 @@ function SearchView({navigation}: any): JSX.Element {
             </View>
           </View>
         </TouchableHighlight>
+        <Snackbar
+          visible={snackOn}
+          onDismiss={() => setSnackOn(false)}
+        >
+          {snackText}
+        </Snackbar>
       </View>
     );
 }
