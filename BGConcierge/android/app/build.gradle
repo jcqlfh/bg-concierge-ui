@@ -100,9 +100,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.bgconcierge"
+    namespace "cx.jose.onka.bgconcierge"
     defaultConfig {
-        applicationId "com.bgconcierge"
+        applicationId "cx.jose.onka.bgconcierge"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

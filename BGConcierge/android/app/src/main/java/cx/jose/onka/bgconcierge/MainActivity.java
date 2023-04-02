@@ -1,4 +1,4 @@
-package com.bgconcierge;
+package cx.jose.onka.bgconcierge;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatDelegate;

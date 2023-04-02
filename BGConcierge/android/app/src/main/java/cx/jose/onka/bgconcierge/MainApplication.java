@@ -1,4 +1,4 @@
-package com.bgconcierge;
+package cx.jose.onka.bgconcierge;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
