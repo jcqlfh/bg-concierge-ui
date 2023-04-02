@@ -1,7 +1,7 @@
 import CommonStyles from '@shared/styles/common.style';
 import React from 'react';
 import {Button, Checkbox, Dialog, Text} from 'react-native-paper';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView} from 'react-native';
 
 function ListChooser(props: {
   data: {name: string; checked: boolean}[];
@@ -15,7 +15,6 @@ function ListChooser(props: {
       onDismiss={props.onDismiss}
       style={CommonStyles.Styles.expandSize}>
       <Dialog.Title>Alert</Dialog.Title>
-      <Dialog.Content>{<Text>'Teste'</Text>}</Dialog.Content>
       <Dialog.ScrollArea>
         <ScrollView removeClippedSubviews={false}>
           {props.data.map((m, i) => (
