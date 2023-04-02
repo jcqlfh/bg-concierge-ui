@@ -49,7 +49,7 @@
 		850B60A729ABAEE000024C9B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-BGConcierge-BGConciergeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge-BGConciergeTests.release.xcconfig"; path = "Target Support Files/Pods-BGConcierge-BGConciergeTests/Pods-BGConcierge-BGConciergeTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F95585F449A44E2A83A81E03 /* BigelowRules-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BigelowRules-Regular.ttf; path = ../assets/fonts/BigelowRules-Regular.ttf; sourceTree = "<group>"; };
+		F95585F449A44E2A83A81E03 /* BigelowRules-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BigelowRules-Regular.ttf"; path = "../assets/fonts/BigelowRules-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
