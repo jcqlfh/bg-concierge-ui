@@ -336,6 +336,9 @@ function SearchView({navigation}: any): JSX.Element {
               const docs = await getDocs(suggestionsQuery);
               docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
+
+            if(!boardgames.length)
+              return boardgames;
           } 
           
           if(search.numPlayers) {
