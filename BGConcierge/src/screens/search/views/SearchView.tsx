@@ -374,6 +374,9 @@ function SearchView({navigation}: any): JSX.Element {
               const docs = await getDocs(suggestionsQuery);
               docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
+
+            if(!boardgames.length)
+              return boardgames;
           }
 
           if(search.duration) {
@@ -409,6 +412,9 @@ function SearchView({navigation}: any): JSX.Element {
               const docs = await getDocs(suggestionsQuery);
               docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
+
+            if(!boardgames.length)
+              return boardgames;
           }
           
           if(search.difficulty) {
@@ -444,6 +450,9 @@ function SearchView({navigation}: any): JSX.Element {
               const docs = await getDocs(suggestionsQuery);
               docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
+
+            if(!boardgames.length)
+              return boardgames;
           }
             
           if(search.categories?.length > 0) {
@@ -454,6 +463,9 @@ function SearchView({navigation}: any): JSX.Element {
               const docs = await getDocs(suggestionsQuery);
               docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
+
+            if(!boardgames.length)
+              return boardgames;
           }
 
           if(search.mechanics?.length > 0) {
@@ -464,6 +476,9 @@ function SearchView({navigation}: any): JSX.Element {
               const docs = await getDocs(suggestionsQuery);
               docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
+
+            if(!boardgames.length)
+              return boardgames;
           }
           
           return boardgames;
