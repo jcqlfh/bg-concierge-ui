@@ -71,6 +71,13 @@ function SetupView({navigation}: any): JSX.Element {
       
       let goodMatch = responseText?.match(/(?<=objectid=")[0-9]+(?=")/gm)
       collectionItems = goodMatch?.map(p => parseInt(p)).filter((value, index, array) => array.indexOf(value) === index) ?? collectionItems;
+    
+      if(collectionItems.length == 0){
+        setLoading(false);
+        setSnackOn(true);
+        setSnackText("Empty collection. Please use another setting.");
+        return;
+      }
     } 
     
     if(predefinedData.map(d=> d.name).join().indexOf(selectedItem) < 0 && !selectedItem.match(/^[A-Za-z]{1}[A-Za-z_]{3,19}$/)){
@@ -80,12 +87,7 @@ function SetupView({navigation}: any): JSX.Element {
       return;
     }
 
-    if(collectionItems.length == 0){
-      setLoading(false);
-      setSnackOn(true);
-      setSnackText("Empty collection. Please use another setting.");
-      return;
-    }
+    
 
 
     context.setValue({

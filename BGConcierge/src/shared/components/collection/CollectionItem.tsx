@@ -31,19 +31,12 @@ function CollectionItem(props: {
   {
     if(value >= 0 && value < 2)
     {
-      return 'easy';
+      return 'Easy';
     } else if (value >= 2 && value < 4) {
-      return 'medium';
+      return 'Medium';
     } else if (value >= 4) {
-      return 'hard';
+      return 'Hard';
     }
-  }
-
-  function escapeHtml(html){
-    var text = window.document.createTextNode(html);
-    var p = document.createElement('p');
-    p.appendChild(text);
-    return p.innerHTML;
   }
 
   return (
