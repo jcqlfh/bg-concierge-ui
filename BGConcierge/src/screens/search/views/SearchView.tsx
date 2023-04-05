@@ -11,7 +11,7 @@ import Loading from '@shared/components/loading/Loading';
 import { SuggestionContext } from '@shared/context/SuggestionContext';
 import { FirebaseApp, getApp, getApps, initializeApp } from 'firebase/app'
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth'
-import { QueryFilterConstraint, and, collection, getDocs, initializeFirestore, limit, orderBy, query, where } from '@firebase/firestore'
+import { collectionGroup, collection, getDocs, initializeFirestore, query, where, documentId } from '@firebase/firestore'
 import { Boardgame } from '@shared/context/Boardgame';
 import { FIREBASE_CONFIG, FIREBASE_USER, FIREBASE_PASS } from '@env'
 
@@ -330,7 +330,6 @@ function SearchView({navigation}: any): JSX.Element {
 
           if(context.value.colectionItems.length > 0) {
             const collectionId = [...context.value.colectionItems];
-
             while(collectionId.length > 0) {
               const suggestionsQuery = query(collection(db, 'boardgames'), where('Id', 'in', collectionId.splice(0, collectionId.length > 10 ? 10 : collectionId.length)))
               const docs = await getDocs(suggestionsQuery);
@@ -339,8 +338,38 @@ function SearchView({navigation}: any): JSX.Element {
 
             if(!boardgames.length)
               return boardgames;
-          } 
+          } else {
+
+            var groupCollectionName = 'boardgame';
+
+            switch(context.value.collection) {
+              case 'BGG TOP 100' :
+                groupCollectionName = 'boardgame';
+                break;
+              case 'BGG Strategy TOP 100' :
+                groupCollectionName = 'strategygames';
+                break;
+              case 'BGG Abstracts TOP 100' :
+                groupCollectionName = 'abstracts';
+                break;
+              case 'BGG Family TOP 100' :
+                groupCollectionName = 'familygames';
+                break;
+            }
+            
+            const suggestionsQuery = query(collectionGroup(db, groupCollectionName), where('Value', '>', 0), where('Value', '<=', 100));
+            const rank = await getDocs(suggestionsQuery);
+            const rankedDocs = rank.docs.map(doc => doc.ref.parent.parent.id);
+            while(rankedDocs.length > 0) {
+              const queryRanks = query(collection(db, 'boardgames'), where('__name__', 'in', rankedDocs.splice(0, rankedDocs.length > 10 ? 10 : rankedDocs.length)))
+              const docs = await getDocs(queryRanks);
+              docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
+            }
+          }
           
+          if(boardgames.length == 0)
+            return boardgames;
+
           if(search.numPlayers) {
             if (boardgames.length > 0) {
               switch(search.numPlayers)
@@ -355,27 +384,9 @@ function SearchView({navigation}: any): JSX.Element {
                   boardgames = [...boardgames.filter(b=> b.MaxPlayers >= 5)]
                   break
               }
-            } else {
-              var conditions: QueryFilterConstraint[] = [];
-              switch(search.numPlayers)
-              {
-                case 'small':
-                  conditions.push(where('MaxPlayers', '>=', 1), where('MaxPlayers', '<=', 2))
-                  break
-                case 'medium':
-                  conditions.push(where('MaxPlayers', '>=', 3), where('MaxPlayers', '<=', 4))
-                  break
-                case 'large':
-                  conditions.push(where('MaxPlayers', '>=', 5))
-                  break
-              }
-
-              const suggestionsQuery = query(collection(db, 'boardgames'), and(...conditions), limit(1000))
-              const docs = await getDocs(suggestionsQuery);
-              docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
 
-            if(!boardgames.length)
+            if(boardgames.length == 0)
               return boardgames;
           }
 
@@ -393,27 +404,9 @@ function SearchView({navigation}: any): JSX.Element {
                   boardgames = [...boardgames.filter(b => b.PlayingTime <= 120)];
                   break
               }
-            } else {
-              var conditions: QueryFilterConstraint[] = [];
-              switch(search.duration)
-              {
-                case 'short':
-                  conditions.push(where('PlayingTime', '<=', 30))
-                  break
-                case 'medium':
-                  conditions.push(where('PlayingTime', '<=', 60))
-                  break
-                case 'long':
-                  conditions.push(where('PlayingTime', '<=', 120))
-                  break
-              }
-
-              const suggestionsQuery = query(collection(db, 'boardgames'), and(...conditions), limit(1000))
-              const docs = await getDocs(suggestionsQuery);
-              docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
 
-            if(!boardgames.length)
+            if(boardgames.length == 0)
               return boardgames;
           }
           
@@ -431,37 +424,15 @@ function SearchView({navigation}: any): JSX.Element {
                   boardgames = [...boardgames.filter(b => b.Statistics.AverageWeight >= 4)];
                   break
               }
-            } else {
-              var conditions: QueryFilterConstraint[] = [];
-              switch(search.difficulty)
-              {
-                case 'easy':
-                  conditions.push(where('Statistics.AverageWeight', '>=', 0), where('Statistics.AverageWeight', '<=', 2))
-                  break
-                case 'medium':
-                  conditions.push(where('Statistics.AverageWeight', '>=', 2), where('Statistics.AverageWeight', '<=', 3))
-                  break
-                case 'hard':
-                  conditions.push(where('Statistics.AverageWeight', '>=', 4))
-                  break
-              }
-
-              const suggestionsQuery = query(collection(db, 'boardgames'), and(...conditions), limit(1000))
-              const docs = await getDocs(suggestionsQuery);
-              docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
 
-            if(!boardgames.length)
+            if(boardgames.length == 0)
               return boardgames;
           }
             
           if(search.categories?.length > 0) {
             if (boardgames.length > 0) {
               boardgames = [...boardgames.filter(b => b.Categories.some(c => search.categories.join().match(c)))]
-            } else {
-              const suggestionsQuery = query(collection(db, 'boardgames'), where('Categories', 'array-contains-any', search.categories), limit(1000))
-              const docs = await getDocs(suggestionsQuery);
-              docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
 
             if(!boardgames.length)
@@ -471,13 +442,9 @@ function SearchView({navigation}: any): JSX.Element {
           if(search.mechanics?.length > 0) {
             if (boardgames.length > 0) {
               boardgames = [...boardgames.filter(b => b.Mechanics.some(m => search.mechanics.join().match(m)))]
-            } else {
-              const suggestionsQuery = query(collection(db, 'boardgames'), where('Mechanics', 'array-contains-any', search.mechanics), limit(1000))
-              const docs = await getDocs(suggestionsQuery);
-              docs.forEach(doc => boardgames.push(doc.data() as Boardgame))
             }
 
-            if(!boardgames.length)
+            if(boardgames.length == 0)
               return boardgames;
           }
           

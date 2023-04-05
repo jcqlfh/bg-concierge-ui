@@ -10,7 +10,13 @@ import Loading from '@shared/components/loading/Loading';
 function SetupView({navigation}: any): JSX.Element {
   const flatListRef =
     useRef<FlatList<{name: string; isEditable: boolean}>>(null);
-  const [data, setData] = useState([{name: 'BGG Ranking', isEditable: false}]);
+  const predefinedData = [
+    {name: 'BGG TOP 100', isEditable: false},
+    {name: 'BGG Strategy TOP 100', isEditable: false},
+    {name: 'BGG Abstracts TOP 100', isEditable: false},
+    {name: 'BGG Family TOP 100', isEditable: false},
+  ];
+  const [data, setData] = useState(predefinedData);
   const [rerender, setRerender] = useState(new Date());
   const [selectedItem, setSelectedItem] = useState('');
   const [isLoading, setLoading] = useState(false);
@@ -25,15 +31,15 @@ function SetupView({navigation}: any): JSX.Element {
       return;
     }
 
-    setData([data[0], {name: '', isEditable: true}, ...data.slice(1)]);
+    setData([{name: '', isEditable: true}, ...data,]);
     setRerender(new Date());
   };
 
   const onSetupButtonPressCallback = async () => {
     
     let collectionItems: number[] = [];
-
-    if(selectedItem !== 'BGG Ranking') {
+    console.log
+    if(predefinedData.map(d=> d.name).join().indexOf(selectedItem) < 0 && selectedItem.match(/^[A-Za-z]{1}[A-Za-z_]{3,19}$/)) {
       setLoading(true);
 
       var status = 202;
@@ -64,8 +70,24 @@ function SetupView({navigation}: any): JSX.Element {
       }
       
       let goodMatch = responseText?.match(/(?<=objectid=")[0-9]+(?=")/gm)
-      collectionItems = goodMatch?.map(p => parseInt(p)) ?? collectionItems;
+      collectionItems = goodMatch?.map(p => parseInt(p)).filter((value, index, array) => array.indexOf(value) === index) ?? collectionItems;
+    } 
+    
+    if(predefinedData.map(d=> d.name).join().indexOf(selectedItem) < 0 && !selectedItem.match(/^[A-Za-z]{1}[A-Za-z_]{3,19}$/)){
+      setLoading(false);
+      setSnackOn(true);
+      setSnackText("Invalid username");
+      return;
     }
+
+    if(collectionItems.length == 0){
+      setLoading(false);
+      setSnackOn(true);
+      setSnackText("Empty collection. Please use another setting.");
+      return;
+    }
+
+
     context.setValue({
       ...context.value,
       collection: selectedItem,

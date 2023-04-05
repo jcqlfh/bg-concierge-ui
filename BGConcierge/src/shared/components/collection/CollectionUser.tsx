@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Text, TextInput} from 'react-native-paper';
-import {Image, TouchableHighlight, View} from 'react-native';
+import {Image, NativeSyntheticEvent, TextInputEndEditingEventData, TouchableHighlight, View} from 'react-native';
 import {useSwipe} from '@shared/hooks/useSwipe';
 import CommonStyles from '@shared/styles/common.style';
 
@@ -18,6 +18,8 @@ function CollectionUser(props: {
     6,
   );
 
+  const [errorState, setErrorState] = useState(false);
+
   return (
     <TouchableHighlight activeOpacity={0.6}>
       <View
@@ -27,7 +29,8 @@ function CollectionUser(props: {
         style={[
           {
             flexDirection: 'row',
-            backgroundColor: props.isSelected
+            backgroundColor: errorState ? '#FF000040':
+            props.isSelected
               ? CommonStyles.Colors.primary
               : CommonStyles.Colors.gray,
           },
@@ -43,7 +46,10 @@ function CollectionUser(props: {
           </Text>
           <TextInput
             value={props.name}
-            onChangeText={(text: string) => props.onChange(text)}
+            onChangeText={(text: string) => {
+              setErrorState(!text.match(/^[A-Za-z]{1}[A-Za-z_]{3,19}$/));
+              props.onChange(text);
+            }}
             style={{textAlign: 'center', backgroundColor: 'transparent'}}
             editable={props.isEditable}
           />

@@ -66,7 +66,7 @@ function Header(props: {onPress: () => void}): JSX.Element {
               textAlign: 'center',
               textAlignVertical: 'center',
               padding: 20,
-              fontSize: 20,
+              fontSize: 16,
             }}>
             {context.value.collection || 'NOT DEFINED'}
           </Text>
