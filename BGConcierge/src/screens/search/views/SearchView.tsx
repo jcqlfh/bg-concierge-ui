@@ -356,10 +356,10 @@ function SearchView({navigation}: any): JSX.Element {
                 groupCollectionName = 'familygames';
                 break;
             }
-            
+
             const suggestionsQuery = query(collectionGroup(db, groupCollectionName), where('Value', '>', 0), where('Value', '<=', 100));
             const rank = await getDocs(suggestionsQuery);
-            const rankedDocs = rank.docs.map(doc => doc.ref.parent.parent.id);
+            const rankedDocs = rank.docs.map(doc => doc?.ref?.parent?.parent?.id ?? "0").filter(r => r !== "0");
             while(rankedDocs.length > 0) {
               const queryRanks = query(collection(db, 'boardgames'), where('__name__', 'in', rankedDocs.splice(0, rankedDocs.length > 10 ? 10 : rankedDocs.length)))
               const docs = await getDocs(queryRanks);

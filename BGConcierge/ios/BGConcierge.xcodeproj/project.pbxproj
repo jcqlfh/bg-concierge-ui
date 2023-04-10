@@ -25,27 +25,27 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = "BGConcierge";
+			remoteInfo = BGConcierge;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* BGConciergeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BGConciergeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* BGConciergeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BGConciergeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* BGConciergeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BGConciergeTests.m"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* BGConcierge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BGConcierge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "BGConcierge/AppDelegate.h"; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = "BGConcierge/AppDelegate.mm"; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "BGConcierge/Images.xcassets"; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "BGConcierge/Info.plist"; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "BGConcierge/main.m"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* BGConciergeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BGConciergeTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* BGConcierge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BGConcierge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BGConcierge/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = BGConcierge/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BGConcierge/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BGConcierge/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BGConcierge/main.m; sourceTree = "<group>"; };
 		18B52457D77F439E9F979782 /* BellotaText-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "BellotaText-Regular.ttf"; path = "../assets/fonts/BellotaText-Regular.ttf"; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-BGConcierge-BGConciergeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BGConcierge-BGConciergeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-BGConcierge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge.debug.xcconfig"; path = "Target Support Files/Pods-BGConcierge/Pods-BGConcierge.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-BGConcierge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge.release.xcconfig"; path = "Target Support Files/Pods-BGConcierge/Pods-BGConcierge.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-BGConcierge-BGConciergeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge-BGConciergeTests.debug.xcconfig"; path = "Target Support Files/Pods-BGConcierge-BGConciergeTests/Pods-BGConcierge-BGConciergeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-BGConcierge.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BGConcierge.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = "BGConcierge/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BGConcierge/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		850B60A729ABAEE000024C9B /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-BGConcierge-BGConciergeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BGConcierge-BGConciergeTests.release.xcconfig"; path = "Target Support Files/Pods-BGConcierge-BGConciergeTests/Pods-BGConcierge-BGConciergeTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -78,7 +78,7 @@
 				00E356F21AD99517003FC87E /* BGConciergeTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = "BGConciergeTests";
+			path = BGConciergeTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -100,7 +100,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = "BGConcierge";
+			name = BGConcierge;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -184,8 +184,8 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = "BGConciergeTests";
-			productname = "BGConciergeTests";
+			name = BGConciergeTests;
+			productName = BGConciergeTests;
 			productReference = 00E356EE1AD99517003FC87E /* BGConciergeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -206,8 +206,8 @@
 			);
 			dependencies = (
 			);
-			name = "BGConcierge";
-			productName = "BGConcierge";
+			name = BGConcierge;
+			productName = BGConcierge;
 			productReference = 13B07F961A680F5B00A75B9A /* BGConcierge.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -457,7 +457,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "BGConciergeTests/Info.plist";
+				INFOPLIST_FILE = BGConciergeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -469,7 +469,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cx.jose.onka.bgconcierge";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.jose.onka.bgconcierge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BGConcierge.app/BGConcierge";
 			};
@@ -481,7 +481,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = "BGConciergeTests/Info.plist";
+				INFOPLIST_FILE = BGConciergeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,7 +493,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cx.jose.onka.bgconcierge";
+				PRODUCT_BUNDLE_IDENTIFIER = cx.jose.onka.bgconcierge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BGConcierge.app/BGConcierge";
 			};
@@ -508,8 +508,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 97AJ5K7FTU;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = "BGConcierge/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "BGConcierge";
+				INFOPLIST_FILE = BGConcierge/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BGConcierge;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -520,9 +520,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cx.jose.onka.bgconcierge";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = cx.jose.onka.BGConcierge;
-				PRODUCT_NAME = "BGConcierge";
+				PRODUCT_BUNDLE_IDENTIFIER = JYYN5TYPY6.cx.jose.onka.bgconcierge;
+				PRODUCT_NAME = BGConcierge;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -537,8 +536,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 97AJ5K7FTU;
-				INFOPLIST_FILE = "BGConcierge/Info.plist";
-             INFOPLIST_KEY_CFBundleDisplayName = "BGConcierge";
+				INFOPLIST_FILE = BGConcierge/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BGConcierge;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -549,9 +548,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cx.jose.onka.bgconcierge";
-				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = cx.jose.onka.BGConcierge;
-				PRODUCT_NAME = "BGConcierge";
+				PRODUCT_BUNDLE_IDENTIFIER = JYYN5TYPY6.cx.jose.onka.bgconcierge;
+				PRODUCT_NAME = BGConcierge;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

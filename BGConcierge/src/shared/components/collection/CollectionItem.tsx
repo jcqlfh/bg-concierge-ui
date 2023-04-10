@@ -20,14 +20,14 @@ function CollectionItem(props: {
     6,
   );
 
-  function getText(value1, value2) {
+  function getText(value1: any, value2: any) {
     if(value1 == value2)
       return value1;
     else
      return value1 + '-' + value2;
   }
 
-  function getWeight(value)
+  function getWeight(value: number)
   {
     if(value >= 0 && value < 2)
     {

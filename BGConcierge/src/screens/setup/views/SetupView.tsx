@@ -87,9 +87,6 @@ function SetupView({navigation}: any): JSX.Element {
       return;
     }
 
-    
-
-
     context.setValue({
       ...context.value,
       collection: selectedItem,
