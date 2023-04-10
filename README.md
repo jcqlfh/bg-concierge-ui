@@ -1,6 +1,8 @@
 # bg-concierge-ui
 React native version of BGConcierge. App to lookup for boardgames in BGG based database.
 
+https://apps.apple.com/app/bgconcierge/id6447433708
+
 Currently there is two ways of searching. The top 100 bard ranks or a personal collection.
 
 you can search by player quanity, duration, weight, category or mechanics. 
